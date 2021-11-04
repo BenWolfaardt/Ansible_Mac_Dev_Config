@@ -1,0 +1,42 @@
+{
+	// This file was generated from "building" (ctrl+shift+B) the project
+	
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: g++.exe build active file", // The label value is what you 
+			// will see in the tasks list; you can name this whatever you like.
+			"command": "C:\\MinGW-w64\\mingw64\\bin\\g++.exe", // The command setting 
+			// specifies the program to run
+			
+			"args": [ // The args array specifies the command-line arguments that will 
+				// be passed to g++
+
+				//This task tells g++ to take the active file (${file}), compile it, and 
+				// create an executable file in the current directory (${fileDirname}) 
+				// with the same name as the active file but with the .exe extension 
+				// (${fileBasenameNoExtension}.exe), resulting in helloworld.exe for our 
+				// example.
+				
+				"-g",
+				"${workspaceFolder}\\*.cpp", // build all cpp files in the directory
+				// originall the above argument was ${file}
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe"
+			],
+			"options": {
+				"cwd": "C:\\MinGW-w64\\mingw64\\bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true // The "isDefault": true value in the group object 
+				// specifies that this task will be run when you press Ctrl+Shift+B
+			},
+			"detail": "compiler: C:\\MinGW-w64\\mingw64\\bin\\g++.exe"
+		}
+	]
+}

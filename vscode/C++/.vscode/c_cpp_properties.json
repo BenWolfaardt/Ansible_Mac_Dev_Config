@@ -1,0 +1,39 @@
+{
+    "configurations": [
+        {
+            "name": "GCC - Win32",
+            "includePath": [ // You only need to add to the Include path array setting 
+                // if your program includes header files that are not in your workspace 
+                // or in the standard library path
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:\\MinGW-w64\\mingw64\\bin\\gcc.exe", // The extension 
+            // uses the compilerPath setting to infer the path to the C++ standard 
+            // library header files. When the extension knows where to find those files, 
+            // it can provide features like smart completions and Go to Definition 
+            // navigation.
+            // The C/C++ extension attempts to populate compilerPath with the default 
+            // compiler location based on what it finds on your system. The extension 
+            // looks in several common compiler locations.
+            // The compilerPath search order is:
+            // - First check for the Microsoft Visual C++ compiler
+            // - Then look for g++ on Windows Subsystem for Linux (WSL)
+            // - Then g++ for Mingw-w64.
+            // If you have Visual Studio or WSL installed, you may need to change 
+            // compilerPath to match the preferred compiler for your project. For 
+            // example, if you installed Mingw-w64 version 8.1.0 using the i686 
+            // architecture, Win32 threading, and sjlj exception handling install 
+            // options, the path would look like this: 
+            // C:\Program Files (x86)\mingw-w64\i686-8.1.0-win32-sjlj-rt_v6-rev0
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}
