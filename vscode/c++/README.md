@@ -1,3 +1,3 @@
 # C++ VSCode Config
 
-A simple Hello World C++ program with the necessary configurations to run it in VSCode.
+A simple Hello World C++ program with the necessary `.vscode` configurations to run the project in VSCode.
