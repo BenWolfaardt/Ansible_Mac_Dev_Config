@@ -3,3 +3,10 @@
 	email = benjaminwolfaardt@gmail.com
 [core]
 	editor = vi
+[alias]
+	a = add .
+	f = fetch
+	l = log
+	pl = pull
+	ps = push
+	s = status
