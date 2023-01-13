@@ -1,0 +1,28 @@
+---
+- name: Update homebrew
+  homebrew:
+    name: git
+    state: latest
+    update_homebrew: true
+  tags:
+  - brew
+
+- name: Install homebrew packages
+  homebrew:
+    name: '{{ homebrew_packages }}'
+    state: latest
+  tags:
+  - brew
+
+- name: Install homebrew cask packages
+  command: brew install {{ homebrew_cask_packages|join(" ") }}
+  tags:
+  - brew
+
+- name: Upgrade pyenv
+  shell: brew unlink pyenv && brew install --head --fetch-head pyenv && brew link pyenv --head
+  tags:
+  - pyenv
+
+- name: homebrew cleanup
+  command: brew cleanup

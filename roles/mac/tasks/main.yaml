@@ -1,0 +1,11 @@
+---
+- name: Setup ssh for GitHub
+  import_tasks: github_ssh.yml
+
+- name: Install things
+  import_tasks: installs.yml
+
+- name: Link in dotfiles
+  import_tasks: dotfiles.yml
+  tags:
+  - dotfiles
