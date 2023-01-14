@@ -1,3 +1,6 @@
 ---
 - import_tasks: dock.yml
   tags: [settings-dock]
+
+- import_tasks: system.yml
+  tags: [settings-system]

@@ -1,0 +1,17 @@
+---
+- name: Save application states on quit ({{ system_save_application_state_on_quit }})
+  when: system_save_application_state_on_quit != None
+  osx_defaults:
+    domain: com.apple.systempreferences
+    key: NSQuitAlwaysKeepsWindows
+    type: bool
+    value: "{{ system_save_application_state_on_quit | bool }}"
+
+- name: Warn before emptying the trash ({{ system_warn_before_emptying_the_trash }})
+  when: system_warn_before_emptying_the_trash != None
+  osx_defaults:
+    domain: com.apple.finder
+    key: WarnOnEmptyTrash
+    type: bool
+    value: "{{ system_warn_before_emptying_the_trash | bool }}"
+  notify: Restart Finder
