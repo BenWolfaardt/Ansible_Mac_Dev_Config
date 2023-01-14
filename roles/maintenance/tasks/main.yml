@@ -1,5 +1,5 @@
 ---
-- name: Update homebrew
+- name: Update Homebrew
   homebrew:
     name: git
     state: latest
@@ -7,7 +7,7 @@
   tags:
   - brew
 
-- name: homebrew cleanup
+- name: Cleanup Homebrew 
   command: brew cleanup
   
 - name: Upgrade pyenv
