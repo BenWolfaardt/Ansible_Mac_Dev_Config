@@ -1,5 +1,5 @@
 ---
-- name: Make Dock icons of hidden applications translucent.
+- name: Make Dock icons of hidden applications translucent
   when: dock_make_hidden_apps_translucent != None
   osx_defaults:
     domain: com.apple.dock
@@ -8,7 +8,7 @@
     value: "{{ dock_make_hidden_apps_translucent | bool }}"
   notify: Restart Dock
 
-- name: Set the icon size of Dock items to {{ dock_tilesize }}px.
+- name: Set the icon size of Dock items to {{ dock_tilesize }}px
   when: dock_tilesize != None
   osx_defaults:
     domain: com.apple.dock
@@ -17,7 +17,7 @@
     value: "{{ dock_tilesize }}"
   notify: Restart Dock
 
-- name: Don’t show recent applications in Dock.
+- name: Don’t show recent applications in Dock
   osx_defaults:
     domain: com.apple.dock
     key: show-recents
