@@ -1,0 +1,11 @@
+---
+projects:
+  # - dest: "Mac_Dev_Config"
+  #   repo_https: "https://github.com/BenWolfaardt/Mac_Dev_Config.git"
+  #   repo_ssh: "git@github.com:BenWolfaardt/Mac_Dev_Config.git"
+  #   version: master
+
+  # - dest: "dotfiles"
+  #   repo_https: "https://github.com/BenWolfaardt/dotfiles.git"
+  #   repo_ssh: "git@github.com:BenWolfaardt/dotfiles.git"
+  #   version: main

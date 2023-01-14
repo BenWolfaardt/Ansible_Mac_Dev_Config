@@ -1,0 +1,28 @@
+---
+- name: Ensure ~/src directory exists
+  file:
+    path: ~/src
+    state: directory
+    follow: true
+
+# TODO clone with SSH from get go?
+#   Currently this is just the Ansible Mac config directory
+- name: Clone projects repos
+  git:
+    repo: "{{ item.repo_https }}"
+    dest: ~/src/{{ item.dest }}
+    accept_hostkey: true
+    version: "{{ item.version | default(master) }}"
+    update: false
+  with_items: "{{ projects }}"
+
+# TODO skip this step.
+#   Currently this is failing, need to figure this out
+#   Ideally SSH will be auto setup, but for now this is a compromise
+# - name: Set git remote URL to SSH
+#   command: git remote set-url origin {{ item.repo_ssh }}
+#   with_items: "{{ projects }}"
+#   args:
+#     chdir: "~/src/{{ item.dest }}"
+#     warn: false
+#   changed_when: false
