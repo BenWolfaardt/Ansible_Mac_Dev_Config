@@ -1,0 +1,16 @@
+---
+- name: Update homebrew
+  homebrew:
+    name: git
+    state: latest
+    update_homebrew: true
+  tags:
+  - brew
+
+- name: homebrew cleanup
+  command: brew cleanup
+  
+- name: Upgrade pyenv
+  shell: brew unlink pyenv && brew install --head --fetch-head pyenv && brew link pyenv --head
+  tags:
+  - pyenv
