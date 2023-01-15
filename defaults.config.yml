@@ -1,0 +1,146 @@
+---
+#-------------- Collection: geerlingguy.mac --------------#
+# homebrew: https://github.com/geerlingguy/ansible-collection-mac/tree/master/roles/homebrew
+# casks
+homebrew_cask_appdir: /Applications
+homebrew_cask_apps:
+  - authy
+  - brave-browser
+  - dbeaver-community
+  # Not working on my Hackintosh, thus using the below instead
+  # - docker
+  - docker-toolbox
+  - discord
+  - flux
+  - obsidian
+  - postman
+  - spotify
+  # Not signed, might need to make this a script
+  # - stretchly
+  - visual-studio-code
+
+# taps
+homebrew_taps:
+  - homebrew/cask
+  - homebrew/core
+
+# formulae
+homebrew_installed_packages:
+  - ansible
+  - dockutil
+  # # TODO Bypass due to Hackintosh issues
+  # # - docker
+  # # - docker-compose
+  - git
+  - gh
+  - grep
+  - htop
+  - openssl@1.1
+  - poetry
+  - postgresql@15
+  - pyenv
+  - pyenv-virtualenv
+  - python@3.11
+  - wget
+
+# dock: https://github.com/geerlingguy/ansible-collection-mac/tree/master/roles/dock
+configure_dock: true
+dockitems_remove:
+- Safari
+- System Preferences
+- Messages
+- Mail
+- Photos
+- FaceTime
+- Calendar
+- Contacts
+- Reminders
+- Notes 
+- "App Store"
+dockitems_persist:
+- name: "Authy"
+  path: "/Applications/Authy Desktop.app/"
+  pos: 5
+- name: "Brave"
+  path: "/Applications/Brave Browser.app/"
+  pos: 4
+- name: "DBeaver"
+  path: "/Applications/DBeaver.app/"
+  pos: 9
+- name: "Discord"
+  path: "/Applications/Discord.app/"
+  pos: 7
+- name: "Mission Control"
+  path: "/Applications/Mission Control.app/"
+  pos: 3
+- name: "Obsidian"
+  path: "/Applications/Obsidian.app/"
+  pos: 6
+- name: "Postman"
+  path: "/Applications/Postman.app/"
+  pos: 10
+- name: "Spotify"
+  path: "/Applications/Spotify.app/"
+  pos: 8
+- name: "Visual Studio Code"
+  path: "/Applications/Visual Studio Code.app/"
+  pos: 11
+
+#-------------- Role: geerlingguy.dotfiles --------------#
+# https://github.com/geerlingguy/ansible-role-dotfiles
+configure_dotfiles: true
+
+dotfiles_repo: https://github.com/BenWolfaardt/Dotfiles.git
+dotfiles_repo_version: main
+dotfiles_repo_accept_hostkey: true
+dotfiles_repo_local_destination: ~/src/config/dotfiles
+dotfiles_home: "~"
+dotfiles_files:
+  - .gitconfig
+  - .gitignore
+  # - .osx
+  - .zprofile
+  - .zshenv
+  - .zshrc
+
+#-------------- Role: Settings --------------#
+# Dock
+dock_make_hidden_apps_translucent: true
+dock_tilesize: 40
+
+# Hostname
+computername: Ben's-Hackintosh
+hostname: null
+
+# SSH
+configure_ssh: false
+# TODO figure out
+ssh_keys:
+  - name: "GitHub"
+    host: "*.github.com"
+    type: "ed25519"
+    comment: "GitHub SSH"
+  # - name: "gitlab"
+  #   host: "gitlab.com"
+  #   hostname: "username.gitlab.com"
+  #   type: "rsa"
+  #   comment: "some comment"
+
+# System
+system_save_application_state_on_quit: true
+system_warn_before_emptying_the_trash: true
+
+#-------------- Role: VSCode --------------#
+vscode_extensions:
+  - mhutchie.git-graph  # Git Graph: https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph
+  - ms-python.python  # Python: https://marketplace.visualstudio.com/items?itemName=ms-python.python
+  # TODO change extension settings?
+  - oderwat.indent-rainbow  # indent-rainbow: https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow
+  
+
+#-------------- Role: Projects --------------#
+projects:
+  # - dest: "Mac_Dev_Config"
+  #   repo_https: "https://github.com/BenWolfaardt/Mac_Dev_Config.git"
+  #   repo_ssh: "git@github.com:BenWolfaardt/Mac_Dev_Config.git"
+  #   version: master
