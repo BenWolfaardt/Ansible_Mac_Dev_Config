@@ -1,8 +1,8 @@
 ---
 projects:
-  # - dest: "Mac_Dev_Config"
-  #   repo_https: "https://github.com/BenWolfaardt/Mac_Dev_Config.git"
-  #   repo_ssh: "git@github.com:BenWolfaardt/Mac_Dev_Config.git"
+  # - dest: "Ansible_Mac_Dev_Config"
+  #   repo_https: "https://github.com/BenWolfaardt/Ansible_Mac_Dev_Config.git"
+  #   repo_ssh: "git@github.com:BenWolfaardt/Ansible_Mac_Dev_Config.git"
   #   version: master
 
   # - dest: "dotfiles"

@@ -133,14 +133,14 @@ system_warn_before_emptying_the_trash: true
 #-------------- Role: VSCode --------------#
 vscode_extensions:
   - mhutchie.git-graph  # Git Graph: https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph
+  - ms-azuretools.vscode-docker  # Docker: https://marketplace.visualstudio.com/publishers/Microsoft
   - ms-python.python  # Python: https://marketplace.visualstudio.com/items?itemName=ms-python.python
   # TODO change extension settings?
   - oderwat.indent-rainbow  # indent-rainbow: https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow
-  
 
 #-------------- Role: Projects --------------#
 projects:
-  # - dest: "Mac_Dev_Config"
-  #   repo_https: "https://github.com/BenWolfaardt/Mac_Dev_Config.git"
-  #   repo_ssh: "git@github.com:BenWolfaardt/Mac_Dev_Config.git"
+  # - dest: "Ansible_Mac_Dev_Config"
+  #   repo_https: "https://github.com/BenWolfaardt/Ansible_Mac_Dev_Config.git"
+  #   repo_ssh: "git@github.com:BenWolfaardt/Ansible_Mac_Dev_Config.git"
   #   version: master

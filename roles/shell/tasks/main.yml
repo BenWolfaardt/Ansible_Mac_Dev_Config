@@ -1,4 +1,8 @@
 ---
+# Others
+#   https://github.com/ALT-F4-LLC/dotfiles/blob/main/roles/oh-my-zsh/tasks/main.yaml
+#   https://github.com/geerlingguy/mac-dev-playbook/blob/master/tasks/terminal.yml
+
 - name: Install oh-my-zsh
   shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   args:

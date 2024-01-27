@@ -2,5 +2,12 @@
 - import_tasks: dock.yml
   tags: [settings-dock]
 
+# TODO test if it works
+# - import_tasks: hostname.yml
+#   tags: [settings-hostname]
+
+# - import_tasks: ssh.yml
+#   tags: [settings-ssh]
+
 - import_tasks: system.yml
   tags: [settings-system]
