@@ -1,4 +1,4 @@
-# Automatic config for my Mac Dev devices
+# Ansbile config for my Mac Dev devices
 
 ## TODO 
 - [ ] Create config
