@@ -4,59 +4,71 @@
 # casks
 homebrew_cask_appdir: /Applications
 homebrew_cask_apps:
-  - authy
+  # - Authy  # Doesn't seem to work anymore...
   - brave-browser
+  - docker  # all inclusive of docker and docker desktop
   - dbeaver-community
-  # Not working on my Hackintosh, thus using the below instead
-  # - docker
-  - docker-toolbox
   - discord
   - flux
+  - logi-options-plus
+  - microsoft-office
   - obsidian
+  - orbstack
   - postman
-  - spotify
-  # Not signed, might need to make this a script
-  # - stretchly
+  - slack
   - visual-studio-code
+  - wezterm
+  - whatsapp
 
 # taps
-homebrew_taps:
-  - homebrew/cask
-  - homebrew/core
+homebrew_taps: []
 
 # formulae
 homebrew_installed_packages:
-  - ansible
-  - dockutil
-  # # TODO Bypass due to Hackintosh issues
-  # # - docker
-  # # - docker-compose
+  # - ansible
+  - dockutil  # Tool for managing Mac dock items
   - git
+  # - go@1.20  # TODO install from website:https://go.dev/doc/install, https://go.dev/dl/
   - gh
   - grep
+  - grpcurl
   - htop
-  - openssl@1.1
+  - jq
+  - nvm
+  - openssl@3
   - poetry
-  - postgresql@15
+  - postgresql@16
   - pyenv
   - pyenv-virtualenv
-  - python@3.11
+  - rust
+  # - solana  # See notes on 2024-08-06 as it was installed with sh command
+  - tailscale  # TODO: test it isn't a cask # TODO: To start tailscale now and restart at login: brew services start tailscale
+  - tree
   - wget
-
+ 
+#-------------- Role: geerlingguy.dotfiles --------------#
 # dock: https://github.com/geerlingguy/ansible-collection-mac/tree/master/roles/dock
 configure_dock: true
 dockitems_remove:
 - Safari
-- System Preferences
+- System Settings
 - Messages
 - Mail
+- Maps
 - Photos
 - FaceTime
 - Calendar
 - Contacts
 - Reminders
-- Notes 
-- "App Store"
+# - Notes 
+- Freeform
+- TV
+- Music
+- Keynote
+- Numbers
+- Pages
+- App Store
+
 dockitems_persist:
 - name: "Authy"
   path: "/Applications/Authy Desktop.app/"
@@ -98,9 +110,10 @@ dotfiles_home: "~"
 dotfiles_files:
   - .gitconfig
   - .gitignore
+  - .p10k.zsh
   # - .osx
-  - .zprofile
   - .zshenv
+  - .zshprofile  # TODO: setup custom branches per OS
   - .zshrc
 
 #-------------- Role: Settings --------------#
@@ -132,15 +145,28 @@ system_warn_before_emptying_the_trash: true
 
 #-------------- Role: VSCode --------------#
 vscode_extensions:
-  - mhutchie.git-graph  # Git Graph: https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph
-  - ms-azuretools.vscode-docker  # Docker: https://marketplace.visualstudio.com/publishers/Microsoft
-  - ms-python.python  # Python: https://marketplace.visualstudio.com/items?itemName=ms-python.python
-  # TODO change extension settings?
-  - oderwat.indent-rainbow  # indent-rainbow: https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow
+  - davidanson.vscode-markdownlint  # markdown lint
+  - dbaeumer.vscode-eslint  # es lint
+  - equinusocio.vsc-material-theme-icons  # material icon theme
+  # - github.vscode-github-actions  # github actions
+  - golang.go  # go
+  - hashicorp.terraform  # terraform
+  - juanblanco.solidity  # solidity
+  # - johnpapa.vscode-peacock  # peacock - add colours to your windows
+  - littlefoxteam.vscode-python-test-adapter  # python test explorer
+  - mhutchie.git-graph  # git graph
+  - ms-azuretools.vscode-docker  # docker
+  - ms-vscode.live-server  # live html previewer
+  - ms-python.debugpy # python debugger
+  - ms-python.python  # python
+  - ms-python.vscode-pylance  # pylance
+  # - ms-vscode.makefile-tools  # Makefile Tools
+  # - peterj.proto  # proto
+  # - rust-lang.rust-analyzer  # rust
+  - tamasfe.even-better-toml  # toml linting
+  - tomoki1207.pdf  # pdf viewer
+  # - yoavbls.pretty-ts-errors  # pretty ts errors
+  - zxh404.vscode-proto3  # proto3
 
-#-------------- Role: Projects --------------#
-projects:
-  # - dest: "Ansible_Mac_Dev_Config"
-  #   repo_https: "https://github.com/BenWolfaardt/Ansible_Mac_Dev_Config.git"
-  #   repo_ssh: "git@github.com:BenWolfaardt/Ansible_Mac_Dev_Config.git"
-  #   version: master
+#-------------- Role: ignite --------------#
+ignite_version: "v0.27.2"
