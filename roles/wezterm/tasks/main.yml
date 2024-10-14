@@ -1,0 +1,9 @@
+---
+- name: Copy Wezterm config to home directory
+  copy:
+    src: .wezterm.lua
+    dest: "{{ ansible_env.HOME }}/.wezterm.lua"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: '0644'
+  become: yes
