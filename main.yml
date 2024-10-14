@@ -7,11 +7,22 @@
     - defaults.config.yml
 
   roles:
+    - role: zsh
     # - role: geerlingguy.mac.homebrew
     #   tags: ["homebrew"]
     # - role: geerlingguy.mac.dock
     #   when: configure_dock
     #   tags: ['dock']
+    # - role: geerlingguy.dotfiles
+    #   when: configure_dotfiles
+    #   tags: ['dotfiles']
+    # - role: vscode
+    #   tags: [vscode]
+    # - role: cosmos
+    #   tags: [cosmos]
+
+# ------- Above is used --------- #
+
     # TODO figure out SSH things
     # - role: settings
     #   tags: [settings]
@@ -22,14 +33,11 @@
     # TODO Geerlingguy has a terminal config: https://github.com/geerlingguy/mac-dev-playbook/blob/master/tasks/terminal.yml
     # - role: shell
     #   tags: [shell]
-    # - role: geerlingguy.dotfiles
-    #   when: configure_dotfiles
-    #   tags: ['dotfiles']
+
     # TODO test - having issues on Hackintosh
     # - role: docker
     #   tags: [docker]
-    # - role: vscode
-    #   tags: [vscode]
+
     # TODO fix, don't want to delete where I am currently working
     # - role: projects
     #   tags: [projects]
