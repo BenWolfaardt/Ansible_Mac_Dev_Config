@@ -5,13 +5,8 @@ alias va='cat $ans/roles/zsh/templates/aliases.zsh'
 #   https://github.com/ohmyzsh/ohmyzsh/wiki/Cheatsheet
 
 # apt package manager
-alias aar='sudo apt autoremove -y'  # removes packages that were automatically installed to satisfy dependencies for other packages and are no longer needed
-alias aupd='sudo apt update'
-alias aupg='sudo apt upgrade'
-alias aupgy='sudo apt upgrade -y'
-alias auu='sudo apt update && sudo apt upgrade'
-alias auuy='sudo apt update && sudo apt upgrade -y'
-alias auuay='sudo apt update && sudo apt upgrade -y && autoremove -y'
+alias bupd='brew update'
+alias bupg='brew upgrade'
  
 # docker
 alias d='docker'
@@ -36,9 +31,6 @@ alias dv='docker volume'
 alias dvi='docker volume inspect'
 alias dvl='docker volume ls'
 
-# dpkg
-alias di='sudo dpkg -i'  # followed with package name
-
 # find
 alias fda='find . -name . -o -prune -exec rm -rf -- {} +'  # delete all contents in current directory
 # alias ff='find . -name "$1"'
@@ -54,7 +46,7 @@ function gcnv() { git commit -m $1 --no-verify }
 alias gco='git checkout --orphan'
 alias gpd='git push origin --delete'  # for remote branch deletion
 
-# grep
+# grep - test
 # alias grrn='grep -rn "search_string" /path/to/folder'
 function grrn() { grep -rn "$1" $2}  # search for a string and show line numbers:
 # alias grrni='grep -rn --include=\*.<file_extension> "search_string" /path/to/folder'
@@ -76,9 +68,6 @@ alias ip6d='curl -s https://ifconfig.me | xargs ipv6calc -q -i -m'  # details
 # lsof
 # alias lp='sudo lsof -i -P -n | grep $1'
 function lp() { sudo lsof -i -P -n | grep ":$1" }  # check if a specific port is beng used
-
-# nautilus
-alias naut='sudo nautilus'
 
 # nmap
 alias np='sudo nmap -p 22 192.168.0.0/24'  # get ip addresses of machines with ssh port 22 open on local network
