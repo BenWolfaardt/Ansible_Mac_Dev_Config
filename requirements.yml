@@ -1,7 +1,7 @@
 ---
 roles:
   # https://github.com/elliotweiser/ansible-osx-command-line-tools
-  - name: elliotweiser.osx-command-line-tools
+  # - name: elliotweiser.osx-command-line-tools
   # https://github.com/geerlingguy/ansible-role-dotfiles
   - name: geerlingguy.dotfiles
 
