@@ -1,43 +1,37 @@
 ---
 - name: Configure macOS
-  
   hosts: localhost
   
   vars_files:
     - defaults.config.yml
 
   roles:
-    - role: zsh
-    # - role: geerlingguy.mac.homebrew
-    #   tags: ["homebrew"]
-    # - role: geerlingguy.mac.dock
-    #   when: configure_dock
-    #   tags: ['dock']
-    # - role: geerlingguy.dotfiles
-    #   when: configure_dotfiles
-    #   tags: ['dotfiles']
-    # - role: vscode
-    #   tags: [vscode]
-    # - role: cosmos
-    #   tags: [cosmos]
-
-# ------- Above is used --------- #
-
+    - role: cosmos
+      tags: ["cosmos"]
+    - role: geerlingguy.mac.dock
+      when: configure_dock
+      tags: ["dock"]
+    # NOTE: Needs to happen after zsh has been installed
+    - role: geerlingguy.dotfiles
+      when: configure_dotfiles
+      tags: ["dotfiles"]
+    - role: geerlingguy.mac.homebrew
+      tags: ["homebrew"]
     # TODO figure out SSH things
-    # - role: settings
-    #   tags: [settings]
-    # - role: maintenance
-    #   tags: ["maintenance"]
-    # Oh-my-zsh
-    # Has to happen before dotfiles configuration or else it will overwrite
-    # TODO Geerlingguy has a terminal config: https://github.com/geerlingguy/mac-dev-playbook/blob/master/tasks/terminal.yml
-    # - role: shell
-    #   tags: [shell]
-
-    # TODO test - having issues on Hackintosh
-    # - role: docker
-    #   tags: [docker]
-
+    - role: maintenance
+      tags: ["maintenance"]
     # TODO fix, don't want to delete where I am currently working
-    # - role: projects
-    #   tags: [projects]
+    - role: projects
+      tags: [projects]
+    # TODO figure out SSH things
+    - role: settings
+      tags: ["settings"]
+    - role: vscode
+      tags: ["vscode"]
+    # NOTE: WIP: Needs to happen after brew from geerlingguy has been installed
+    - role: wezterm
+      tags: ["wezterm"]
+    # NOTE: Needs to happen before dotfiles have been installed
+    # NOTE: Update aliases for Mac
+    - role: zsh
+      tags: ["zsh"]
