@@ -1,0 +1,21 @@
+{
+  "files.exclude": {
+      "**/__pycache__": true,
+      "**/.mypy_cache": true,
+      "**/.pytest_cache": true,
+      "**/.ruff_cache": true
+  },
+  "git.confirmSync": false,
+  "git.autofetch": false,
+  "git.suggestSmartCommit": false,
+  "markdown.experimental.updateLinksOnPaste": true,
+  "python.testing.pytestArgs": [
+      "tests"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "window.zoomLevel": 1,
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.iconTheme": "eq-material-theme-icons-light"
+}
