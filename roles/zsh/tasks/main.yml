@@ -1,0 +1,12 @@
+---
+- name: Install oh-my-zsh
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  args:
+    creates: ~/.oh-my-zsh
+  become_user: "{{ ansible_user_id }}"
+  environment:
+    RUNZSH: 'no'
+    CHSH: 'no'
+
+- include_tasks: plugins.yml
+- include_tasks: themes.yml
