@@ -1,9 +1,0 @@
-{
-    "debug": false,
-    "experimental": false,
-    "features": {
-        "buildkit": true
-    },
-    "log-driver": "json-file",
-    "log-level": ""
-}
