@@ -37,7 +37,7 @@ homebrew_installed_packages:
   - nvm
   - openssl@3
   - poetry
-  - postgresql@16
+  - postgresql@16 # TODO: latest?
   - pyenv
   - pyenv-virtualenv
   - rust
@@ -45,10 +45,12 @@ homebrew_installed_packages:
   - tailscale  # TODO: test it isn't a cask # TODO: To start tailscale now and restart at login: brew services start tailscale
   - tree
   - wget
- 
+
+# TODO: update name to dock
 #-------------- Role: geerlingguy.dotfiles --------------#
 # dock: https://github.com/geerlingguy/ansible-collection-mac/tree/master/roles/dock
 configure_dock: true
+
 dockitems_remove:
 - Safari
 - System Settings
@@ -69,34 +71,35 @@ dockitems_remove:
 - Pages
 - App Store
 
-dockitems_persist:
-- name: "Authy"
-  path: "/Applications/Authy Desktop.app/"
-  pos: 5
-- name: "Brave"
-  path: "/Applications/Brave Browser.app/"
-  pos: 4
-- name: "DBeaver"
-  path: "/Applications/DBeaver.app/"
-  pos: 9
-- name: "Discord"
-  path: "/Applications/Discord.app/"
-  pos: 7
-- name: "Mission Control"
-  path: "/Applications/Mission Control.app/"
-  pos: 3
-- name: "Obsidian"
-  path: "/Applications/Obsidian.app/"
-  pos: 6
-- name: "Postman"
-  path: "/Applications/Postman.app/"
-  pos: 10
-- name: "Spotify"
-  path: "/Applications/Spotify.app/"
-  pos: 8
-- name: "Visual Studio Code"
-  path: "/Applications/Visual Studio Code.app/"
-  pos: 11
+# Update
+# dockitems_persist:
+# - name: "Authy"
+#   path: "/Applications/Authy Desktop.app/"
+#   pos: 5
+# - name: "Brave"
+#   path: "/Applications/Brave Browser.app/"
+#   pos: 4
+# - name: "DBeaver"
+#   path: "/Applications/DBeaver.app/"
+#   pos: 9
+# - name: "Discord"
+#   path: "/Applications/Discord.app/"
+#   pos: 7
+# - name: "Mission Control"
+#   path: "/Applications/Mission Control.app/"
+#   pos: 3
+# - name: "Obsidian"
+#   path: "/Applications/Obsidian.app/"
+#   pos: 6
+# - name: "Postman"
+#   path: "/Applications/Postman.app/"
+#   pos: 10
+# - name: "Spotify"
+#   path: "/Applications/Spotify.app/"
+#   pos: 8
+# - name: "Visual Studio Code"
+#   path: "/Applications/Visual Studio Code.app/"
+#   pos: 11
 
 #-------------- Role: geerlingguy.dotfiles --------------#
 # https://github.com/geerlingguy/ansible-role-dotfiles
@@ -116,47 +119,48 @@ dotfiles_files:
   - .zshprofile  # TODO: setup custom branches per OS
   - .zshrc
 
+# TODO: update settings
 #-------------- Role: Settings --------------#
-# Dock
-dock_make_hidden_apps_translucent: true
-dock_tilesize: 40
+# # Dock
+# dock_make_hidden_apps_translucent: true
+# dock_tilesize: 40
 
-# Hostname
-computername: Ben's-Hackintosh
-hostname: null
+# # Hostname
+# computername: Ben's-Hackintosh
+# hostname: null
 
-# SSH
-configure_ssh: false
-# TODO figure out
-ssh_keys:
-  - name: "GitHub"
-    host: "*.github.com"
-    type: "ed25519"
-    comment: "GitHub SSH"
-  # - name: "gitlab"
-  #   host: "gitlab.com"
-  #   hostname: "username.gitlab.com"
-  #   type: "rsa"
-  #   comment: "some comment"
+# # SSH
+# configure_ssh: false
+# # TODO figure out
+# ssh_keys:
+#   - name: "GitHub"
+#     host: "*.github.com"
+#     type: "ed25519"
+#     comment: "GitHub SSH"
+#   # - name: "gitlab"
+#   #   host: "gitlab.com"
+#   #   hostname: "username.gitlab.com"
+#   #   type: "rsa"
+#   #   comment: "some comment"
 
-# System
-system_save_application_state_on_quit: true
-system_warn_before_emptying_the_trash: true
+# # System
+# system_save_application_state_on_quit: true
+# system_warn_before_emptying_the_trash: true
 
 #-------------- Role: VSCode --------------#
 vscode_extensions:
   - davidanson.vscode-markdownlint  # markdown lint
-  - dbaeumer.vscode-eslint  # es lint
+  # - dbaeumer.vscode-eslint  # es lint
   - equinusocio.vsc-material-theme-icons  # material icon theme
-  # - github.vscode-github-actions  # github actions
+  - github.vscode-github-actions  # github actions
   - golang.go  # go
-  - hashicorp.terraform  # terraform
-  - juanblanco.solidity  # solidity
+  # - hashicorp.terraform  # terraform # TODO: check tofu
+  # - juanblanco.solidity  # solidity
   # - johnpapa.vscode-peacock  # peacock - add colours to your windows
-  - littlefoxteam.vscode-python-test-adapter  # python test explorer
+  # - littlefoxteam.vscode-python-test-adapter  # python test explorer
   - mhutchie.git-graph  # git graph
   - ms-azuretools.vscode-docker  # docker
-  - ms-vscode.live-server  # live html previewer
+  # - ms-vscode.live-server  # live html previewer
   - ms-python.debugpy # python debugger
   - ms-python.python  # python
   - ms-python.vscode-pylance  # pylance
@@ -164,7 +168,7 @@ vscode_extensions:
   # - peterj.proto  # proto
   # - rust-lang.rust-analyzer  # rust
   - tamasfe.even-better-toml  # toml linting
-  - tomoki1207.pdf  # pdf viewer
+  # - tomoki1207.pdf  # pdf viewer
   # - yoavbls.pretty-ts-errors  # pretty ts errors
   - zxh404.vscode-proto3  # proto3
 
