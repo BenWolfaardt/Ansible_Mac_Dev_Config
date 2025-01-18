@@ -1,0 +1,25 @@
+adobe-acrobat-reader
+balenaetcher
+obs
+trezor-suite
+
+# ?????
+yubikey? 
+GoPro quick 
+Slack
+Discord
+Flux
+Postman
+MS Office
+obs
+MS TODO 
+Brave
+Postman
+Rapberry pi imager
+MS TODO
+Orbstack
+WhatsApp
+Stretchly // and notes to update automatically
+Obsidian
+DBeaver
+Wezterm
