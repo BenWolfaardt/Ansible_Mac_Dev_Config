@@ -1,0 +1,30 @@
+---
+# - name: "Starting docker service"
+  # service:
+  #   name: "docker"
+  #   state: started
+  #   enabled: yes
+
+# - name: Add to group
+#   ansible.builtin.user:
+#     append: yes
+#     groups: docker
+#     name: "{{ ansible_env['USER'] }}"
+#   become: yes
+
+# - name: Ensure /etc/docker directory exists
+#   file:
+#     path: "/etc/docker"
+#     state: directory
+#     follow: true
+#   become: yes
+
+# https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file
+# https://docs.docker.com/build/buildkit/
+# TODO better way to do this?
+# - name: Copy daemon.json
+#   ansible.builtin.template:
+#     dest: "/etc/docker/daemon.json"
+#     src: "daemon.json"
+#   become: yes
+#   notify: restart_docker

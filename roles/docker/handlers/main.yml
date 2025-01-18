@@ -1,0 +1,4 @@
+---
+# Not properlly tested because service never properly enabled
+# - name: Restart Docker
+#   command: killall Docker
