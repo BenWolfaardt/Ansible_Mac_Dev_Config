@@ -1,0 +1,18 @@
+---
+- Installing the Solana CLI
+	- https://docs.solanalabs.com/cli/install
+	- ~~[Setup local development and install the Solana CLI](https://solana.com/developers/guides/getstarted/setup-local-development)~~
+	- [How to generate a keypair from a Phantom wallet with multiple addresses](https://emersonthis.medium.com/how-to-generate-a-keypair-from-a-phantom-wallet-with-multiple-addresses-a2b256ba9391)
+
+Note requires Rust
+> https://solana.com/docs/intro/installation
+
+```bash
+# Install CLI
+> sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
+# Get pubkey
+> solana-keygen recover 'prompt:?key=0/0'
+2m26DcwTKp6HMvz3bqJZHaSNFbo2R7RQKRYQKuagJ6Zx
+```
+
+> If you have multiple wallets in Phantom, you will need to change the number in the `prompt:` argument to recover different wallets. For example, `prompt:?key=1/0` to get the next one. And `prompt:?key=2/0` to get the one after that. For me, the order of those indexes was _not_ the same as the list order in Phantom, so I had to try them one-by-one until I found the one I was looking for.
