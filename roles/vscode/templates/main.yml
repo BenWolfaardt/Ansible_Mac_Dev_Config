@@ -8,6 +8,8 @@
   "git.confirmSync": false,
   "git.autofetch": false,
   "git.suggestSmartCommit": false,
+  "go.testFlags": ["-v"],
+  "go.testTimeout": "20m",
   "markdown.experimental.updateLinksOnPaste": true,
   "python.testing.pytestArgs": [
       "tests"
