@@ -46,6 +46,12 @@ function gcnv() { git commit -m $1 --no-verify }
 alias gco='git checkout --orphan'
 alias gpd='git push origin --delete'  # for remote branch deletion
 
+# go
+alias govl='ls ~/go/bin | grep -E '^go[0-9]+(\.[0-9]+)*$''  # list installed go versions
+alias govsl='ls -l /usr/local/go/bin/go'  # list current symbolic link version
+# alias gvs='sudo ln -sf ~/go/bin/$1 /usr/local/go/bin/go'
+function govssl() { sudo ln -sf ~/go/bin/$1 /usr/local/go/bin/go }  # update the symbolic link to the desired go version
+
 # grep - test
 # alias grrn='grep -rn "search_string" /path/to/folder'
 function grrn() { grep -rn "$1" $2}  # search for a string and show line numbers:
