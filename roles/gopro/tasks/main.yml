@@ -1,0 +1,13 @@
+---
+# TODO: figure out GitHub login autoamted, I want ssh key to be used automatically
+# - name: Tap Homebrew Go versions repository, state present
+#   community.general.homebrew_tap:
+#     name: go/version
+
+- name: Install Go 1.20.14
+  community.general.homebrew:
+    name: go@1.20
+    state: present
+
+- name: Verify Go installation
+  ansible.builtin.command: /usr/local/bin/go version
