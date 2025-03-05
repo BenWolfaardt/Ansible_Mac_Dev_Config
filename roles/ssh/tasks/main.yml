@@ -1,0 +1,79 @@
+---
+# Others:
+#   https://github.com/gperdomor/macOS-ansible/blob/main/roles/settings/tasks/ssh.yml
+#   https://github.com/adamchainz/mac-ansible/blob/main/roles/adam_mac/tasks/basic_settings.yml
+#   https://github.com/ALT-F4-LLC/dotfiles/blob/main/roles/ssh/tasks/main.yaml
+
+# 0. Pre-requisites, Bitwarden .dmg and 1Password from brew?
+
+# 1. Build the SSH config file
+
+# # Added by OrbStack: 'orb' SSH host for Linux machines
+# # This only works if it's at the top of ssh_config (before any Host blocks).
+# # This won't be added again if you remove it.
+# Include ~/.orbstack/ssh/config
+
+# # tail scale - mac-studio-m2-max
+# Host 100.121.216.7
+# 	HostName 100.121.216.7
+# 	ForwardAgent no
+# 	User ben
+
+# Host github.com
+# 	HostName github.com
+# 	IdentityAgent "/Users/ben/.bitwarden-ssh-agent.sock"
+# 	PreferredAuthentications publickey
+
+# Host kima.github.com
+#  	HostName github.com
+#  	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+#  	PreferredAuthentications publickey
+
+# 2. Add the additional git config to end of .gitconfig
+
+# [includeIf "gitdir:~/src/kima/"]
+# 	path = ~/src/kima/.gitconfig
+
+# 3. Set up the additional .gitconfig directly from Ansible, i.e. store it in here.
+
+# 4. Should work automatically
+
+# Requires openssh
+#   brew install openssh
+
+- name: Ensure ~/.ssh exists
+  file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    state: directory
+    mode: "0700"
+
+- name: Generate ssh keys
+  openssh_keypair:
+    path: "{{ ansible_env.HOME }}/.ssh/id_{{ item.type | default('ed25519') }}_{{ item.name }}"
+    type: "{{ item.type | default('ed25519')}}"
+    comment: "{{ item.comment | default(omit)}}"
+    state: present
+    force: no
+  loop: "{{ ssh_keys }}"
+
+- name: Configure the users ssh config file
+  template:
+    src: "config.j2"
+    dest: "{{ ansible_env.HOME }}/.ssh/config"
+    mode: "0600"
+
+- name: Enable ssh agent
+  shell: eval `ssh-agent -s`
+  changed_when: false
+
+- name: Add ssh private keys to ssh agent
+  command: "ssh-add -K {{ ansible_env.HOME }}/.ssh/{{item.name}}"
+  loop: "{{ ssh_keys }}"
+  changed_when: false
+
+# TODO: figure out how Hardware keys can be added?
+# - name: Add hardware keys to ssh agent
+#   command: "ssh-add {{ item.path }}"
+#   loop: "{{ hardware_keys }}"
+#   changed_when: false
+#   become: yes

@@ -1,0 +1,13 @@
+#jinja2:lstrip_blocks: True
+
+{% for key in ssh_keys %}
+# {{ key.comment or key.hostname }}
+Host {{ key.name + '.' + key.hostname }}
+  Hostname {{ key.hostname }}
+  {% endif %}
+  AddKeysToAgent yes
+  UseKeychain yes
+  PreferredAuthentications publickey
+  IdentityFile {{ ansible_env.HOME + '/.ssh/' + 'id_' + key.type + '_' + key.name }}
+
+{% endfor %}
