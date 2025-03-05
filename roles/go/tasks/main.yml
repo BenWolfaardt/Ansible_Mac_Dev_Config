@@ -1,0 +1,70 @@
+---
+- name: Download Go pkg file
+  ansible.builtin.get_url:
+    url: https://go.dev/dl/go{{ go_version }}.darwin-arm64.pkg
+    dest: /tmp/go{{ go_version }}.darwin-arm64.pkg
+
+# TODO: use the symlinks approach from my aliases
+# NOTE: This will also delete all cnfigured go binaries when changing to a new version. 
+#   Perhaps condier adding versions to thiese files? and updating PATH?
+# - name: Delete previous Go installation
+#   ansible.builtin.file:
+#     path: "/usr/local/go/"
+#     state: absent
+#   become: true
+
+# TODO: Is the below necessary, especially if the above is used? i.e. versions are changed?
+# - name: Check if Go installation directory exists
+#   ansible.builtin.stat:
+#     path: "{{ ansible_env.HOME }}/go"
+#   register: go_installation_dir
+
+# - name: Create directory for Go installation
+#   ansible.builtin.file:
+#     path: "{{ ansible_env.HOME }}/go"
+#     state: directory
+#   become: true
+#   when: not go_installation_dir.stat.exists
+
+- name: Install Go pkg file
+  ansible.builtin.command:
+    cmd: installer -pkg /tmp/go{{ go_version }}.darwin-arm64.pkg -target /
+  become: true
+  args:
+    creates: /usr/local/go/bin/go
+
+- name: Delete downloaded pkg file
+  ansible.builtin.file:
+    path: /tmp/go{{ go_version }}.darwin-arm64.pkg
+    state: absent
+
+- name: Source updated profile and test Go version
+  ansible.builtin.shell: ". ~/.zshrc && go version"
+  register: go_version_output
+
+- name: Display Go version
+  ansible.builtin.debug:
+    msg: "{{ go_version_output.stdout }}"
+
+# TODO: Add in step t automatically install the below tools
+#   NOTE: ctrl + shift + p -> Go: Install/Update Tools
+# 2025-01-20 23:12:48.694 [info] Tools environment: GOPATH=/Users/ben/go, GOTOOLCHAIN=auto
+# 2025-01-20 23:12:48.694 [info] Installing 2 tools at /Users/ben/go/bin
+# 2025-01-20 23:12:48.694 [info]   gopls
+# 2025-01-20 23:12:48.694 [info]   staticcheck
+# 2025-01-20 23:12:48.694 [info] 
+# 2025-01-20 23:13:02.106 [info] Installing golang.org/x/tools/gopls@latest (/Users/ben/go/bin/gopls) SUCCEEDED
+# 2025-01-20 23:13:12.753 [info] Installing honnef.co/go/tools/cmd/staticcheck@latest (/Users/ben/go/bin/staticcheck) SUCCEEDED
+# 2025-01-20 23:13:12.754 [info] 
+# 2025-01-20 23:13:12.754 [info] All tools successfully installed. You are ready to Go. :)
+# 2025-01-20 23:13:13.095 [info] Try to start language server - activation (enabled: true)
+# 2025-01-20 23:13:13.127 [info] Running language server gopls(v0.17.1/go1.23.5)
+# 2025-01-20 23:13:23.785 [info] Tools environment: GOPATH=/Users/ben/go, GOTOOLCHAIN=auto
+# 2025-01-20 23:13:23.785 [info] Installing 7 tools at /Users/ben/go/bin
+# 2025-01-20 23:13:23.785 [info]   gopls
+# 2025-01-20 23:13:23.785 [info]   gotests
+# 2025-01-20 23:13:23.785 [info]   gomodifytags
+# 2025-01-20 23:13:23.785 [info]   impl
+# 2025-01-20 23:13:23.786 [info]   goplay
+# 2025-01-20 23:13:23.786 [info]   dlv
+# 2025-01-20 23:13:23.786 [info]   staticcheck
