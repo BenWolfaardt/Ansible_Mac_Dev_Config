@@ -1,0 +1,24 @@
+---
+# brew install tailscale
+# sudo brew services start tailscale
+# tailscale up --ssh
+#   click link in termianl and authenticate
+# tailscale status
+
+---
+
+# The below gave me issues... 
+
+# Download latest go - https://go.dev/dl/
+# govdl 1.23.6
+
+# Download tailscaled - https://github.com/tailscale/tailscale/wiki/Tailscaled-on-macOS
+# go1.23.6 install tailscale.com/cmd/tailscale{,d}@main
+
+# Run at system startup
+# sudo $HOME/go/bin/tailscaled install-system-daemon
+
+# Add to zsh tab complemtions (automatic with brew)
+# https://tailscale.com/kb/1080/cli?tab=zsh#tab-completion
+
+
