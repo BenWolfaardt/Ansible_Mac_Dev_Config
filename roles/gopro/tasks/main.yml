@@ -1,6 +1,7 @@
 ---
 # TODO: figure out GitHub login autoamted, I want ssh key to be used automatically
 # - name: Tap Homebrew Go versions repository, state present
+# TODO: update this for legacy gopro client
 #   community.general.homebrew_tap:
 #     name: go/version
 
