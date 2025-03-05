@@ -1,0 +1,25 @@
+---
+- name: Check if Ignite CLI is installed
+  stat:
+    path: /usr/local/bin/ignite
+  register: ignite_cli
+
+- name: Download and install Ignite CLI
+  become: yes
+  shell: "curl -sSL https://get.ignite.com/cli@{{ ignite_version }}! | bash"
+  when: not ignite_cli.stat.exists
+
+- name: Verify Ignite CLI installation
+  ansible.builtin.command: /usr/local/bin/ignite version
+  register: ignite_version_check
+  ignore_errors: true
+
+- name: Set fact with Ignite CLI version
+  set_fact:
+    ignite_cli_version: "{{ ignite_version_check.stdout | regex_search('Ignite CLI version:\\s+v(\\S+)', '\\1') }}"
+  when: ignite_version_check.rc == 0
+
+- name: Print Ignite CLI version
+  ansible.builtin.debug:
+    msg: "Ignite CLI version installed: {{ ignite_cli_version }}"
+  when: ignite_version_check.rc == 0
