@@ -1,24 +1,35 @@
 ---
-#-------------- Collection: geerlingguy.mac --------------#
+#-------------- Collection: geerlingguy.mac.homebrew --------------#
 # homebrew: https://github.com/geerlingguy/ansible-collection-mac/tree/master/roles/homebrew
+
 # casks
 homebrew_cask_appdir: /Applications
 homebrew_cask_apps:
+  - 1password
+  - adobe-acrobat-reader
   # - Authy  # Doesn't seem to work anymore...
+  - balenaetcher
+  # - bitwarden  # Install from App Store to use TouchID
   - brave-browser
-  - docker  # all inclusive of docker and docker desktop
-  - dbeaver-community
+  # - docker  # orbstack is better
+  # - dbeaver-community
   - discord
   - flux
   - logi-options-plus
   - microsoft-office
+  - obs
   - obsidian
   - orbstack
   - postman
+  # - quick  # disabled 2024-12-16
+  - raspberry-pi-imager
   - slack
+  - surfshark
+  - trezor-suite
   - visual-studio-code
   - wezterm
   - whatsapp
+  - yubico-authenticator
 
 # taps
 homebrew_taps: []
@@ -26,15 +37,18 @@ homebrew_taps: []
 # formulae
 homebrew_installed_packages:
   # - ansible
+  - azure-cli
   - dockutil  # Tool for managing Mac dock items
   - git
   # - go@1.20  # TODO install from website:https://go.dev/doc/install, https://go.dev/dl/
   - gh
   - grep
-  - grpcurl
+  # - grpcurl
   - htop
+  - leveldb
   - jq
-  - nvm
+  - nmap
+  # - nvm
   - openssl@3
   - poetry
   - postgresql@16 # TODO: latest?
@@ -42,22 +56,21 @@ homebrew_installed_packages:
   - pyenv-virtualenv
   - rust
   # - solana  # See notes on 2024-08-06 as it was installed with sh command
-  - tailscale  # TODO: test it isn't a cask # TODO: To start tailscale now and restart at login: brew services start tailscale
+  - speedtest-cli
+  # - tailscale  # TODO: test it isn't a cask # TODO: To start tailscale now and restart at login: brew services start tailscale
   - tree
   - wget
 
-# TODO: update name to dock
-#-------------- Role: geerlingguy.dotfiles --------------#
+#-------------- Role: geerlingguy.mac.dock --------------#
 # dock: https://github.com/geerlingguy/ansible-collection-mac/tree/master/roles/dock
 configure_dock: true
 
 dockitems_remove:
 - Safari
-- System Settings
 - Messages
-- Mail
+# - Mail
 - Maps
-- Photos
+# - Photos
 - FaceTime
 - Calendar
 - Contacts
@@ -70,6 +83,7 @@ dockitems_remove:
 - Numbers
 - Pages
 - App Store
+- System Settings
 
 # Update
 # dockitems_persist:
@@ -116,8 +130,14 @@ dotfiles_files:
   - .p10k.zsh
   # - .osx
   - .zshenv
-  - .zshprofile  # TODO: setup custom branches per OS
+  - .zprofile  # TODO: setup custom branches per OS
   - .zshrc
+
+#-------------- Role: Go --------------#
+go_version: "1.20.14"
+
+#-------------- Role: Ignite --------------#
+ignite_version: "v0.27.2"
 
 # TODO: update settings
 #-------------- Role: Settings --------------#
@@ -129,23 +149,21 @@ dotfiles_files:
 # computername: Ben's-Hackintosh
 # hostname: null
 
-# # SSH
-# configure_ssh: false
-# # TODO figure out
-# ssh_keys:
-#   - name: "GitHub"
-#     host: "*.github.com"
-#     type: "ed25519"
-#     comment: "GitHub SSH"
-#   # - name: "gitlab"
-#   #   host: "gitlab.com"
-#   #   hostname: "username.gitlab.com"
-#   #   type: "rsa"
-#   #   comment: "some comment"
-
 # # System
 # system_save_application_state_on_quit: true
 # system_warn_before_emptying_the_trash: true
+
+#-------------- Role: SSH --------------#
+configure_ssh: true
+ssh_keys:
+  - comment: "Ben GitHub"
+    name: "ben"
+    hostname: "github.com"
+    type: "ed25519"
+  # - comment: "Kima GitHub"
+  #   name: "kima"
+  #   hostname: "github.com"
+  #   type: "ed25519"
 
 #-------------- Role: VSCode --------------#
 vscode_extensions:
@@ -169,6 +187,7 @@ vscode_extensions:
   # - rust-lang.rust-analyzer  # rust
   - tamasfe.even-better-toml  # toml linting
   # - tomoki1207.pdf  # pdf viewer
+  - wholroyd.jinja  # jinja
   # - yoavbls.pretty-ts-errors  # pretty ts errors
   - zxh404.vscode-proto3  # proto3
 

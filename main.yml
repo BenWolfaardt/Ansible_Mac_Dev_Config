@@ -1,31 +1,63 @@
 ---
 - name: Configure macOS
   hosts: localhost
-  
+
   vars_files:
     - defaults.config.yml
 
+  pre_tasks:
+    - name: "Verifying playbook requirements"
+      tags: ["always"]
+      block:
+        # TODO: Confirm version requirements?
+        - name: Verify Ansible version.
+          assert:
+            that: "ansible_version.full is version_compare('2.13.0', '>=')"
+            msg: "You must update Ansible to at least 2.13.0 to use this version of macOS-ansible."
+        - name: Verify target system is running macOS.
+          assert:
+            that: "ansible_distribution == 'MacOSX'"
+            msg: "The target system is not running macOS."
+        # TODO: Confirm version requirements?
+        - name: Verify macOS version.
+          assert:
+            that: "ansible_distribution_version is version_compare('12', '>=')"
+            msg: "The target system must be running macOS 12 (Monterey) or higher to use this version of macOS-ansible."
+    # - name: Include playbook configuration.
+    #   include_vars: "{{ item }}"
+    #   with_fileglob:
+    #     - "{{ playbook_dir }}/config.yml"
+    #   tags: ["always"]
+
   roles:
+    # ------- default system ------- #
     # NOTE: Needs to happen before dotfiles have been installed
     # NOTE: Update aliases for Mac
-    - role: zsh
-      tags: ["zsh"]
-    # - role: geerlingguy.mac.homebrew
+    # - role: zsh  # working
+    #   tags: ["zsh"]
+    - role: geerlingguy.dotfiles  # working
+      when: configure_dotfiles
+      tags: ['dotfiles']
+    # - role: geerlingguy.mac.homebrew  # working
     #   tags: ["homebrew"]
-    # - role: geerlingguy.mac.dock
+    # - role: geerlingguy.mac.dock  # working
     #   when: configure_dock
     #   tags: ['dock']
-    # - role: geerlingguy.dotfiles
-    #   when: configure_dotfiles
-    #   tags: ['dotfiles']
-    # - role: vscode
+
+    # ------- working ------- #
+    # - role: go  # working
+    #   tags: [go]
+    # - role: ignite  # working
+    #   tags: [ignite]
+    # TODO: 1password
+    #   GPG/SSH key for verifying
+    # - role: ssh
+    #   tags: [ssh]
+    # - role: vscode  # working
     #   tags: [vscode]
-    # - role: cosmos
-    #   tags: [cosmos]
 
 # ------- Above is used --------- #
 
-    # TODO figure out SSH things
     # - role: settings
     #   tags: [settings]
     # - role: maintenance
