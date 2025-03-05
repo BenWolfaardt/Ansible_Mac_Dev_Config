@@ -23,3 +23,6 @@ Stretchly // and notes to update automatically
 Obsidian
 DBeaver
 Wezterm
+
+brew install --cask whatsapp
+brew install --cask flux
