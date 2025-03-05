@@ -14,3 +14,9 @@
   shell: brew unlink pyenv && brew install --head --fetch-head pyenv && brew link pyenv --head
   tags:
   - pyenv
+
+# TODO: use system scheduler
+# brew update && brew upgrade
+
+# automate the upgrade hereof as it isn't signed
+# stretchly
