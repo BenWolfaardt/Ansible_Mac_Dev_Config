@@ -16,34 +16,33 @@ alias brupg='brew upgrade'
 # --------- docker --------- #
 alias d='docker'
 
-# alias dcdd='docker compose down -d'
-function dcdd() { docker compose -f "$1" down -d }
-# alias dcu='docker compose up'
-function dcu() { docker compose -f "$1" up }
-# alias dcub='docker compose up --build'
-function dcub() { docker compose -f "$1" up --build }
-# alias dcud='docker compose up -d'
-function dcud() { docker compose -f "$1" up -d }
+# Run docker compose down -d with a specific compose file
+function dcdd() { docker compose -f "$1" down -d; }
+# Run docker compose up with a specific compose file
+function dcu() { docker compose -f "$1" up; }
+# Run docker compose up --build with a specific compose file
+function dcub() { docker compose -f "$1" up --build; }
+# Run docker compose up -d with a specific compose file
+function dcud() { docker compose -f "$1" up -d; }
 alias dc='docker compose'
 alias dcd='docker compose down'
-# alias dcfd='docker compose down'
-function dcfd() { docker compose -f "$1" down }
-# alias dcu='docker compose up'
+# Run docker compose down with a specific compose file
+function dcfd() { docker compose -f "$1" down; }
 alias dcu='docker compose up'
-# alias dcfu='docker compose up'
-function dcfu() { docker compose -f "$1" up }
+# Run docker compose up with a specific compose file
+function dcfu() { docker compose -f "$1" up; }
 alias dcub='docker compose up --build'
-# alias dcfub='docker compose up --build'
-function dcfub() { docker compose -f "$1" up --build }
+# Run docker compose up --build with a specific compose file
+function dcfub() { docker compose -f "$1" up --build; }
 alias dcud='docker compose up -d'
-# alias dcfud='docker compose up -d'
-function dcfud() { docker compose -f "$1" up -d }
+# Run docker compose up -d with a specific compose file
+function dcfud() { docker compose -f "$1" up -d; }
 alias de='docker exec -it'
 alias din='docker info'
 alias di='docker image'
 alias dil='docker image ls'
-# alias dlf='docker logs "$1" -f'
-function dlf() { docker logs "$1" -f }
+# Follow logs for a specific docker container
+function dlf() { docker logs "$1" -f; }
 alias dn='docker network'
 alias dni='docker network inspect'
 alias dnl='docker network ls'
@@ -55,9 +54,10 @@ alias dvl='docker volume ls'
 # --------- find --------- #
 alias f='find'
 
-alias fda='find . -name . -o -prune -exec rm -rf -- {} +'  # delete all contents in current directory
-# alias ff='find . -name "$1"'
-function ff() { find . -name "$1" }  # find a file by recursively looking in current directory
+# Delete all contents in current directory
+alias fda='find . -name . -o -prune -exec rm -rf -- {} +'
+# Find a file by recursively looking in current directory
+function ff() { find . -name "$1"; }  # 
 
 # --------- git --------- #
 alias g='git'
@@ -65,35 +65,41 @@ alias g='git'
 # See also ~/src/config/dotfiles/.gitconfig
 
 alias gbd='git branch -D'  # for local branch deletion
-# alias gcnv='git commit "$1" --no-verify'
-function gcnv() { git commit -m "$1" --no-verify }
+# Commit changes with a message without verifying
+function gcnv() { git commit -m "$1" --no-verify; }
 alias gco='git checkout --orphan'
-alias gpd='git push origin --delete'  # for remote branch deletion
+# Delete a remote branch
+alias gpd='git push origin --delete'
 alias gr='git remote -v'
-alias grd='git rev-parse --abbrev-ref --symbolic-full-name @{u}'  # describe the remote name and branch
-
-# TODO: make it a funciton
-# git remote remove tss-ben-fork
+# Add a remote repository
+function gra() { git remote add "$1" "$2"; }
+alias grr='git remote remove'
+# Update a remote repository URL
+function grs() { git remote set-url "$1" "$2"; }
+# Describe the remote name and branch
+alias grd='git rev-parse --abbrev-ref --symbolic-full-name @{u}'
 
 # --------- go --------- #
 alias gomt='go mod tidy'
 alias gov='go version'
-# alias gvs='go install golang.org/dl/go$1@latest && go$1 download'
-function govdl() { go install golang.org/dl/go"$1"@latest && go"$1" download }  # install specific version
-alias govl='ls ~/go/bin | grep -E "^go[0-9]+(\.[0-9]+)*$"'  # list installed go versions
-alias govsl='ls -l /usr/local/go/bin/go'  # list current symbolic link version
-# alias gvs='sudo ln -sf ~/go/bin/$1 /usr/local/go/bin/go'
-function govssl() { sudo ln -sf ~/go/bin/"$1" /usr/local/go/bin/go }  # update the symbolic link to the desired go version
+# Install a specific version of Go
+function govdl() { go install golang.org/dl/go"$1"@latest && go"$1" download; }
+# List installed go versions
+alias govl='ls ~/go/bin | grep -E "^go[0-9]+(\.[0-9]+)*$"'
+# List current symbolic link version
+alias govsl='ls -l /usr/local/go/bin/go'
+# Set the active Go version by updating symbolic link
+function govssl() { sudo ln -sf ~/go/bin/"$1" /usr/local/go/bin/go; }
 
 # TODO: test these...
 # --------- grep --------- #
 # TODO: conflict with git remote -v
 # alias gr='grep'
 
-# alias grrn='grep -rn "search_string" /path/to/folder'
-function grrn() { grep -rn "$1" "$2"}  # search for a string and show line numbers:
-# alias grrni='grep -rn --include=\*.<file_extension> "search_string" /path/to/folder'
-function grrni() { grep -rn --include=\*."$1" "$2" "$3"}
+# Search for a string recursively and show line numbers
+function grrn() { grep -rn "$1" "$2"; }  # search for a string and show line numbers:
+# Search for a string recursively in files with specific extension
+function grrni() { grep -rn --include=\*."$1" "$2" "$3"; }
 
 # --------- ignite --------- #
 alias i='ignite'
@@ -103,6 +109,14 @@ alias ics='ignite chain serve'
 alias icsr='ignite chain serve --reset-once'
 alias igp='ignite generate proto-go'
 alias igt='ignite generate ts-client'
+# Scaffold a map in a specific module
+function ism() { ignite scaffold map "$1" --module "$2" --yes; }
+# Scaffold a list query in a specific module
+function islq() { ignite scaffold list "$1" --module "$2" --yes; }
+# Scaffold a query in a specific module
+function isq() { ignite scaffold query "$1" --module "$2" --yes; }
+# Scaffold a transaction in a specific module
+function ist() { ignite scaffold message "$1" --module "$2" --yes; }
 alias iv='ignite version'
 
 # --------- ip --------- #
@@ -126,20 +140,21 @@ alias kqtlp='kimad query tss get-keygen-block'
 alias kqtlpe='kimad query tss get-keygen-block-eddsa'
 
 # --------- lsof --------- #
-# alias lp='sudo lsof -i -P -n | grep $1'
-function lp() { sudo lsof -i -P -n | grep ":$1" }  # check if a specific port is beng used
+# Check if a specific port is being used
+function lp() { sudo lsof -i -P -n | grep ":$1"; }
 
 # --------- nmap --------- #
-alias np='sudo nmap -p 22 192.168.0.0/24'  # get ip addresses of machines with ssh port 22 open on local network
+# Scan local network for machines with SSH port 22 open
+alias np='sudo nmap -p 22 192.168.0.0/24'
 
 # --------- poetry --------- #
 alias p='poetry'
 
 alias pa='poetry add'
-# alias pae='poetry add $1 --extras $2'
-function pae() { poetry add "$1" --extras "$2" }
-# alias pad='poetry add $1 --group dev'
-function pad() { poetry add "$1" --group dev }
+# Add a package with specific extras
+function pae() { poetry add "$1" --extras "$2"; }
+# Add a package to the dev dependencies
+function pad() { poetry add "$1" --group dev; }
 alias peu='poetry env use -- $(pyenv which python)'
 alias plnu='poetry lock --no-update'
 alias pint='poetry init'
