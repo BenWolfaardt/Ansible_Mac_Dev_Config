@@ -79,7 +79,6 @@ function grs() { git remote set-url "$1" "$2"; }
 # Describe the remote name and branch
 alias grd='git rev-parse --abbrev-ref --symbolic-full-name @{u}'
 
-
 # --------- go --------- #
 alias gomt='go mod tidy'
 alias gov='go version'
