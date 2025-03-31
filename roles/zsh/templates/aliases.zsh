@@ -71,11 +71,14 @@ alias gco='git checkout --orphan'
 # Delete a remote branch
 alias gpd='git push origin --delete'
 alias gr='git remote -v'
+# Add a remote repository
+function gra() { git remote add "$1" "$2"; }
+alias grr='git remote remove'
+# Update a remote repository URL
+function grs() { git remote set-url "$1" "$2"; }
 # Describe the remote name and branch
 alias grd='git rev-parse --abbrev-ref --symbolic-full-name @{u}'
 
-# TODO: make it a funciton
-# git remote remove tss-ben-fork
 
 # --------- go --------- #
 alias gomt='go mod tidy'
