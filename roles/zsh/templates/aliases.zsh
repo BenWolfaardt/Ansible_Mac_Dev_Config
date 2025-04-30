@@ -209,6 +209,9 @@ alias pyv='pyenv versions'
 alias pyvg='pyenv versions | grep'
 alias pywp='pyenv which python'
 
+# --------- ssh --------- #
+alias sshl='ssh-add -L | ssh-keygen -lf -' # list all ssh keys
+
 # --------- system --------- #
 alias smt='mv * .[!.]* .??* ~/.Trash' # mv all files in the current directory to trash
 alias sra='rm -rf * .[!.]* .??*' # delete all files in the current directory

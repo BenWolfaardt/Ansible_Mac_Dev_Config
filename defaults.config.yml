@@ -46,6 +46,7 @@ homebrew_installed_packages:
   # - grpcurl
   - htop
   - leveldb
+  - libpq  # psql, pg_dump, etc.
   - jq
   - nmap
   # - nvm
