@@ -51,6 +51,7 @@ homebrew_installed_packages:
   - nmap
   # - nvm
   - openssl@3
+  - opentofu
   - poetry
   - postgresql@16 # TODO: latest?
   - pyenv
