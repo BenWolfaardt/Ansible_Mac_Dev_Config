@@ -125,6 +125,29 @@ alias ip4='curl -4 icanhazip.com'
 alias ip6='curl -6 icanhazip.com'
 alias ip6d='curl -s https://ifconfig.me | xargs ipv6calc -q -i -m'  # details
 
+# Check what subnet you are on
+alias subnet='ifconfig | grep "inet " | grep -v 127.0.0.1'
+
+# Check if a specific port is open
+#   -z: zero length
+#   -v: verbose
+#   args: <ip> <port>
+alias port='nc -zv'
+
+# View the routing table
+#   -r : routing table
+#   -n : numeric output
+alias rtable='netstat -rn | grep 192.168'
+
+# See the route to a specific IP address
+#   args: <ip>
+alias route='route get'
+
+# Clear the ARP cache
+#   -d: delete
+#   args: <ip>
+alias carp='sudo arp -d'
+
 # --------- kimad --------- #
 alias k='kimad'
 
@@ -196,9 +219,8 @@ alias -s json=code
 alias -s py=code
 alias -s txt=code
 
-# --------- terraform --------- #
-alias t='terraform'
+# --------- tofu --------- #
+alias t='tofu'
 
-# TODO: Update to use 1password terminal plugins for tokens
-alias tfa='terraform apply -var "do_token=${DO_PAT}"'
-alias tfp='terraform plan -var "do_token=${DO_PAT}"'
+alias tfa='tofu apply'
+alias tfp='tofu plan'
