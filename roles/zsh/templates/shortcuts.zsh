@@ -7,11 +7,12 @@ dot=~/src/config/dotfiles
 mvp=~/src/bhtechio/mvp
 
 # Shortcuts to local Kima projects
-kblc=~/src/kima/kima-blockchain
-kobs=~/src/kima/kima-observer
-ktss=~/src/kima/kima-tss
+kblc=~/src/kima/_forks/kima-blockchain
+kobs=~/src/kima/_forks/kima-observer
+ktss=~/src/kima/_forks/kima-tss
 
 # Shortcuts to local project directories
+ben=~/src/ben/
 bht=~/src/bhtechio/
 dap=~/src/dapp_university/
 fxf=~/src/fxf/
@@ -19,4 +20,5 @@ ion=~/src/ionsie/
 int=~/src/interviews/
 kim=~/src/kima/
 res=~/src/resources/
+scr=~/src/scripts/
 tut=~/src/tuts/
