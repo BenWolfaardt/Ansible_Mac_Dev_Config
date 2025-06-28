@@ -1,0 +1,51 @@
+---
+- name: Check if NVM is already installed
+  stat:
+    path: "{{ nvm_dir }}/nvm.sh"
+  register: nvm_installed
+
+- name: Create NVM directory
+  file:
+    path: "{{ nvm_dir }}"
+    state: directory
+    mode: '0755'
+  when: not nvm_installed.stat.exists
+
+- name: Download and install NVM
+  shell: |
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/install.sh | bash
+  args:
+    creates: "{{ nvm_dir }}/nvm.sh"
+  environment:
+    NVM_DIR: "{{ nvm_dir }}"
+  when: not nvm_installed.stat.exists
+
+- name: Verify NVM installation
+  stat:
+    path: "{{ nvm_dir }}/nvm.sh"
+  register: nvm_verify
+
+- name: Fail if NVM installation failed
+  fail:
+    msg: "NVM installation failed - nvm.sh not found"
+  when: not nvm_verify.stat.exists
+
+- name: Install Node.js versions
+  shell: |
+    source {{ nvm_dir }}/nvm.sh && nvm install {{ item }}
+  args:
+    executable: /bin/bash
+  loop: "{{ nvm_node_versions }}"
+  register: node_install_result
+  changed_when: "'is already installed' not in node_install_result.stderr"
+
+- name: Set default Node.js version
+  shell: |
+    source {{ nvm_dir }}/nvm.sh && nvm alias default {{ nvm_default_node_version }} && nvm use default
+  args:
+    executable: /bin/bash
+  register: default_node_result
+  changed_when: "'default' in default_node_result.stdout"
+
+- name: Install global npm packages
+  include_tasks: global_packages.yml

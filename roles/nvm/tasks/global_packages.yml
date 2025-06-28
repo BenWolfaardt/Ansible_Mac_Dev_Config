@@ -1,0 +1,44 @@
+---
+- name: Check current Node.js version
+  shell: |
+    source {{ nvm_dir }}/nvm.sh && node --version
+  args:
+    executable: /bin/bash
+  register: current_node_version
+  changed_when: false
+
+- name: Display current Node.js version
+  debug:
+    msg: "Installing global packages for Node.js {{ current_node_version.stdout }}"
+
+- name: Check which packages are already available
+  shell: |
+    source {{ nvm_dir }}/nvm.sh && command -v {{ item }} >/dev/null 2>&1
+  args:
+    executable: /bin/bash
+  loop: "{{ nvm_global_packages }}"
+  register: package_check
+  changed_when: false
+  failed_when: false
+
+- name: Install global npm packages
+  shell: |
+    source {{ nvm_dir }}/nvm.sh && npm install -g {{ item }}
+  args:
+    executable: /bin/bash
+  loop: "{{ nvm_global_packages }}"
+  register: npm_install_result
+  changed_when: "'up to date' not in npm_install_result.stderr and npm_install_result.rc == 0"
+  failed_when: npm_install_result.rc != 0 and 'EEXIST' not in npm_install_result.stderr
+
+- name: Verify global packages installation
+  shell: |
+    source {{ nvm_dir }}/nvm.sh && npm list -g --depth=0
+  args:
+    executable: /bin/bash
+  register: global_packages_list
+  changed_when: false
+
+- name: Display installed global packages
+  debug:
+    msg: "{{ global_packages_list.stdout_lines }}"

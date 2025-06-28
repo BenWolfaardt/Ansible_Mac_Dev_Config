@@ -49,7 +49,6 @@ homebrew_installed_packages:
   - libpq  # psql, pg_dump, etc.
   - jq
   - nmap
-  # - nvm
   - openssl@3
   - opentofu
   - poetry
@@ -140,6 +139,23 @@ go_version: "1.20.14"
 
 #-------------- Role: Ignite --------------#
 ignite_version: "v0.27.2"
+
+#-------------- Role: nvm --------------#
+nvm_version: "v0.40.3"
+nvm_default_node_version: "lts/iron"  # Node.js 20 LTS
+nvm_node_versions:
+  - "{{ nvm_default_node_version }}"
+  - "node"  # latest stable
+nvm_global_packages:
+  # npx is bundled with Node.js, no need to install separately
+  # - yarn
+  # - pm2
+  # - nodemon
+  # - typescript
+  # - ts-node
+  - eslint
+  # - prettier
+nvm_dir: "{{ ansible_env.HOME }}/.nvm"
 
 # TODO: update settings
 #-------------- Role: Settings --------------#

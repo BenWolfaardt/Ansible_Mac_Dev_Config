@@ -1,0 +1,12 @@
+---
+- name: reload shell
+  debug:
+    msg: "Shell profiles updated. Please restart your terminal or run 'source ~/.zshrc' to use NVM."
+
+- name: verify nvm installation
+  shell: |
+    source {{ nvm_dir }}/nvm.sh && nvm --version
+  args:
+    executable: /bin/bash
+  register: nvm_version_check
+  changed_when: false

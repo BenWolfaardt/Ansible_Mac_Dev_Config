@@ -35,9 +35,9 @@
     # NOTE: Update aliases for Mac
     # - role: zsh  # working
     #   tags: ["zsh"]
-    - role: geerlingguy.dotfiles  # working
-      when: configure_dotfiles
-      tags: ['dotfiles']
+    # - role: geerlingguy.dotfiles  # working
+    #   when: configure_dotfiles
+    #   tags: ['dotfiles']
     # - role: geerlingguy.mac.homebrew  # working
     #   tags: ["homebrew"]
     # - role: geerlingguy.mac.dock  # working
@@ -45,6 +45,8 @@
     #   tags: ['dock']
 
     # ------- working ------- #
+    - role: nvm  # NVM and Node.js setup
+      tags: [nvm]
     # - role: go  # working
     #   tags: [go]
     # - role: ignite  # working
