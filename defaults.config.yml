@@ -154,6 +154,7 @@ nvm_global_packages:
   # - typescript
   # - ts-node
   - eslint
+  - pnpm
   # - prettier
 nvm_dir: "{{ ansible_env.HOME }}/.nvm"
 
