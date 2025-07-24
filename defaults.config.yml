@@ -209,6 +209,3 @@ vscode_extensions:
   - wholroyd.jinja  # jinja
   # - yoavbls.pretty-ts-errors  # pretty ts errors
   - zxh404.vscode-proto3  # proto3
-
-#-------------- Role: ignite --------------#
-ignite_version: "v0.27.2"
