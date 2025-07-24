@@ -20,5 +20,5 @@ ion=~/src/ionsie/
 int=~/src/interviews/
 kim=~/src/kima/
 res=~/src/resources/
-scr=~/src/scripts/
+scr=~/src/scripts/scripts/
 tut=~/src/tuts/
