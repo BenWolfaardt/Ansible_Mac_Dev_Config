@@ -1,0 +1,33 @@
+---
+- name: Check if Stretchly is running before upgrade
+  ansible.builtin.shell: pgrep -x "Stretchly" || echo "not_running"
+  register: stretchly_running
+  changed_when: false
+
+- name: Kill Stretchly process if running
+  ansible.builtin.command: pkill -x "Stretchly"
+  when: stretchly_running.stdout != "not_running"
+  ignore_errors: yes
+
+- name: Update Homebrew
+  ansible.builtin.command: brew update
+  changed_when: false
+
+- name: Uninstall current Stretchly version
+  ansible.builtin.command: brew uninstall --cask stretchly
+  register: uninstall_result
+  changed_when: uninstall_result.rc == 0
+
+- name: Reinstall Stretchly with no-quarantine flag
+  ansible.builtin.command: brew install --cask --no-quarantine stretchly
+  register: install_result
+  changed_when: install_result.rc == 0
+
+- name: Copy updated Stretchly configuration file
+  ansible.builtin.copy:
+    src: config.json
+    dest: "~/Library/Application Support/stretchly/config.json" 
+    mode: '0644'
+
+- name: Start Stretchly application
+  ansible.builtin.command: open -a "Stretchly"

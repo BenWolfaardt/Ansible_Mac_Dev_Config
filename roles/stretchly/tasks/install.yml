@@ -1,0 +1,41 @@
+---
+- name: Check if Stretchly is installed
+  ansible.builtin.command: brew list --cask stretchly
+  register: stretchly_installed
+  ignore_errors: yes
+  changed_when: false
+
+- name: Install Stretchly if not present
+  ansible.builtin.command: brew install --cask --no-quarantine stretchly
+  when: stretchly_installed.rc != 0
+
+- name: Check if Stretchly is running
+  ansible.builtin.shell: pgrep -x "Stretchly" || echo "not_running"
+  register: stretchly_running
+  changed_when: false
+  when: stretchly_installed.rc != 0
+
+- name: Kill Stretchly process if running (for config update)
+  ansible.builtin.command: pkill -x "Stretchly"
+  when: 
+    - stretchly_installed.rc != 0
+    - stretchly_running.stdout != "not_running"
+  ignore_errors: yes
+
+- name: Ensure Stretchly config directory exists
+  ansible.builtin.file:
+    path: "~/Library/Application Support/stretchly"
+    state: directory
+    mode: '0755'
+  when: stretchly_installed.rc != 0
+
+- name: Copy Stretchly configuration file
+  ansible.builtin.copy:
+    src: config.json
+    dest: "~/Library/Application Support/stretchly/config.json"
+    mode: '0644'
+  when: stretchly_installed.rc != 0
+
+- name: Start Stretchly application
+  ansible.builtin.command: open -a "Stretchly"
+  when: stretchly_installed.rc != 0

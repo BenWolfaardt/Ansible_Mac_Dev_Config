@@ -1,5 +1,5 @@
 {
-	"microbreakDuration": 20000,
+	"microbreakDuration": 15000,
 	"microbreakInterval": 900000,
 	"breakDuration": 180000,
 	"breakInterval": 3,

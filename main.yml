@@ -55,6 +55,8 @@
     #   GPG/SSH key for verifying
     # - role: ssh
     #   tags: [ssh]
+    # - role: stretchly  # working
+    #   tags: [stretchly]
     # - role: vscode  # working
     #   tags: [vscode]
 
