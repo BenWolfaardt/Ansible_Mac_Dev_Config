@@ -183,7 +183,8 @@ alias plnu='poetry lock --no-update'
 alias pint='poetry init'
 alias pins='poetry install'
 alias pr='poetry remove'
-alias ps='poetry shell'
+# DEPRECATED: ps is a built-in command in zsh and poetry shell isn't used in Poetry v2
+# alias ps='poetry shell'
 alias psint='poetry shell && poetry init'
 alias psins='poetry shell && poetry install'
 
