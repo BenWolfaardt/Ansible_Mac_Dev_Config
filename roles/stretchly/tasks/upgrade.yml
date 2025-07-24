@@ -29,5 +29,17 @@
     dest: "~/Library/Application Support/stretchly/config.json" 
     mode: '0644'
 
-- name: Start Stretchly application
+- name: Wait for application registration
+  ansible.builtin.pause:
+    seconds: 1
+  when: stretchly_installed.rc != 0
+
+- name: Start Stretchly application (direct path method)
+  ansible.builtin.command: open "/Applications/Stretchly.app"
+  when: stretchly_installed.rc != 0
+  ignore_errors: yes
+
+- name: Start Stretchly application (fallback method)
   ansible.builtin.command: open -a "Stretchly"
+  when: stretchly_installed.rc != 0
+  ignore_errors: yes
