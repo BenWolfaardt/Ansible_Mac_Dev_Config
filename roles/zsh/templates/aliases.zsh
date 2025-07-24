@@ -119,7 +119,31 @@ function isq() { ignite scaffold query "$1" --module "$2" --yes; }
 function ist() { ignite scaffold message "$1" --module "$2" --yes; }
 alias iv='ignite version'
 
-# --------- ip --------- #
+# --------- kimad --------- #
+alias k='kimad'
+
+alias kqclc='kimad query chains list-chain'
+alias kqclpb='kimad query chains list-pool-balance'
+alias kqgp='kimad query gov proposals'
+alias kqkltp='kimad query kima list-tss-pubkey'
+alias kqklwn='kimad q kima list-whitelisted-node'
+alias kqolov='kimad query observer list-observe-vote'
+alias kqtltd='kimad query transaction list-transaction-data'
+alias kqtlp='kimad query tss list-all-new-pubkey'
+alias kqtlp='kimad query tss get-keygen-block'
+alias kqtlpe='kimad query tss get-keygen-block-eddsa'
+
+# --------- launchctl --------- #
+alias ll='launchctl list' # show all services (loaded and unloaded)
+alias llr='launchctl list | grep -v "^-"' # show only running services
+alias llu='launchctl list | grep $(whoami)' # show services for current user
+alias lls='sudo launchctl list' # show system-wide services
+
+# --------- lsof --------- #
+# Check if a specific port is being used
+function lp() { sudo lsof -i -P -n | grep ":$1"; }
+
+# --------- networking --------- #
 alias ip4='curl -4 icanhazip.com'
 # FIXME: see comments for https://ipv6.net/blog/how-to-check-your-public-ipv6-ip-address-from-the-linux-command-line-using-bash/
 alias ip6='curl -6 icanhazip.com'
@@ -147,24 +171,6 @@ alias route='route get'
 #   -d: delete
 #   args: <ip>
 alias carp='sudo arp -d'
-
-# --------- kimad --------- #
-alias k='kimad'
-
-alias kqclc='kimad query chains list-chain'
-alias kqclpb='kimad query chains list-pool-balance'
-alias kqgp='kimad query gov proposals'
-alias kqkltp='kimad query kima list-tss-pubkey'
-alias kqklwn='kimad q kima list-whitelisted-node'
-alias kqolov='kimad query observer list-observe-vote'
-alias kqtltd='kimad query transaction list-transaction-data'
-alias kqtlp='kimad query tss list-all-new-pubkey'
-alias kqtlp='kimad query tss get-keygen-block'
-alias kqtlpe='kimad query tss get-keygen-block-eddsa'
-
-# --------- lsof --------- #
-# Check if a specific port is being used
-function lp() { sudo lsof -i -P -n | grep ":$1"; }
 
 # --------- nmap --------- #
 # Scan local network for machines with SSH port 22 open
@@ -210,6 +216,9 @@ alias pyv='pyenv versions'
 alias pyvg='pyenv versions | grep'
 alias pywp='pyenv which python'
 
+# --------- sntp --------- #
+alias time='sudo sntp -sS time.apple.com' # sync system time
+
 # --------- ssh --------- #
 alias sshl='ssh-add -L | ssh-keygen -lf -' # list all ssh keys
 
@@ -228,3 +237,12 @@ alias t='tofu'
 
 alias tfa='tofu apply'
 alias tfp='tofu plan'
+
+
+#-------------- Linux service management --------------#
+# Commands that would frequently be run on remote servers
+
+# --------- systemctl --------- #
+systemctl list-units --type=service --all # show all services (active, inactive, etc.)
+systemctl list-unit-files --type=service --state=enabled # just the enabled services
+systemctl list-units --type=service --state=running # just the active (running) services
