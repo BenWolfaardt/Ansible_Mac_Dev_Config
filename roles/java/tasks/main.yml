@@ -1,0 +1,90 @@
+---
+- name: Check if SDKMAN is already installed and working
+  shell: |
+    if [ -f "{{ sdkman_dir }}/bin/sdkman-init.sh" ]; then
+      source {{ sdkman_dir }}/bin/sdkman-init.sh && sdk version
+    else
+      echo "not_installed"
+    fi
+  register: sdkman_check
+  changed_when: false
+  failed_when: false
+
+- name: Remove incomplete SDKMAN installation if exists
+  file:
+    path: "{{ sdkman_dir }}"
+    state: absent
+  when: sdkman_check.stdout == "not_installed" or sdkman_check.rc != 0
+
+- name: Download and install SDKMAN (fresh installation)
+  shell: |
+    curl -s "https://get.sdkman.io" | bash
+  environment:
+    SDKMAN_DIR: "{{ sdkman_dir }}"
+  register: sdkman_install_result
+  when: sdkman_check.stdout == "not_installed" or sdkman_check.rc != 0
+
+- name: Wait for SDKMAN installation to complete
+  pause:
+    seconds: 2
+  when: sdkman_install_result is changed
+
+- name: Verify SDKMAN installation files exist
+  stat:
+    path: "{{ sdkman_dir }}/bin/sdkman-init.sh"
+  register: sdkman_verify
+
+- name: List SDKMAN directory contents for debugging
+  shell: "ls -la {{ sdkman_dir }}/ 2>/dev/null || echo 'Directory does not exist'"
+  register: sdkman_dir_contents
+  when: not sdkman_verify.stat.exists
+
+- name: Fail if SDKMAN installation failed
+  fail:
+    msg: |
+      SDKMAN installation failed - sdkman-init.sh not found at {{ sdkman_dir }}/bin/sdkman-init.sh
+      Directory contents: {{ sdkman_dir_contents.stdout | default('Unable to list directory') }}
+      Install result: {{ sdkman_install_result | default('No install attempted') }}
+  when: not sdkman_verify.stat.exists
+
+- name: Install Java versions
+  shell: |
+    source {{ sdkman_dir }}/bin/sdkman-init.sh && sdk install java {{ item }}
+  args:
+    executable: /bin/bash
+  loop: "{{ java_versions }}"
+  register: java_install_result
+  changed_when: "'is already installed' not in java_install_result.stderr"
+  failed_when: 
+    - java_install_result.rc != 0
+    - "'is already installed' not in java_install_result.stderr"
+
+- name: Set default Java version
+  shell: |
+    source {{ sdkman_dir }}/bin/sdkman-init.sh && sdk default java {{ java_default_version }}
+  args:
+    executable: /bin/bash
+  register: default_java_result
+  changed_when: "'set as default' in default_java_result.stdout"
+
+- name: Verify Java installation
+  shell: |
+    source {{ sdkman_dir }}/bin/sdkman-init.sh && java -version
+  args:
+    executable: /bin/bash
+  register: java_version_output
+  changed_when: false
+
+- name: Display Java version
+  debug:
+    msg: "{{ java_version_output.stderr.split('\n')[0] }}"
+
+- name: Add SDKMAN initialization to shell profile
+  blockinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    block: |
+      # SDKMAN Configuration
+      export SDKMAN_DIR="{{ sdkman_dir }}"
+      [[ -s "{{ sdkman_dir }}/bin/sdkman-init.sh" ]] && source "{{ sdkman_dir }}/bin/sdkman-init.sh"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - SDKMAN"
+    create: yes

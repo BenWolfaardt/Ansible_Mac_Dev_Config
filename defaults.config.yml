@@ -140,6 +140,17 @@ go_version: "1.20.14"
 #-------------- Role: Ignite --------------#
 ignite_version: "v0.27.2"
 
+
+#-------------- Role: Java (SDKMAN) --------------#
+# SDKMAN configuration
+sdkman_dir: "{{ ansible_env.HOME }}/.sdkman"
+
+# Java versions to install via SDKMAN
+java_default_version: "21.0.5-tem"  # Temurin (Eclipse Adoptium) JDK 21 LTS
+java_versions:
+  - "21.0.5-tem"  # Temurin JDK 21 LTS - good for most modern Java apps
+  - "17.0.13-tem"  # Temurin JDK 17 LTS - fallback for compatibility
+
 #-------------- Role: nvm --------------#
 nvm_version: "v0.40.3"
 nvm_default_node_version: "lts/iron"  # Node.js 20 LTS

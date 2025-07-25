@@ -51,6 +51,8 @@
     #   tags: [go]
     # - role: ignite  # working
     #   tags: [ignite]
+    # - role: java  # working
+    #   tags: [java]
     # TODO: 1password
     #   GPG/SSH key for verifying
     # - role: ssh
