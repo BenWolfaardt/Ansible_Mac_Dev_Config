@@ -78,13 +78,3 @@
 - name: Display Java version
   debug:
     msg: "{{ java_version_output.stderr.split('\n')[0] }}"
-
-- name: Add SDKMAN initialization to shell profile
-  blockinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-    block: |
-      # SDKMAN Configuration
-      export SDKMAN_DIR="{{ sdkman_dir }}"
-      [[ -s "{{ sdkman_dir }}/bin/sdkman-init.sh" ]] && source "{{ sdkman_dir }}/bin/sdkman-init.sh"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - SDKMAN"
-    create: yes
