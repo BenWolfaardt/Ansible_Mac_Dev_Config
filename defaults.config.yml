@@ -140,7 +140,6 @@ go_version: "1.20.14"
 #-------------- Role: Ignite --------------#
 ignite_version: "v0.27.2"
 
-
 #-------------- Role: Java (SDKMAN) --------------#
 # SDKMAN configuration
 sdkman_dir: "{{ ansible_env.HOME }}/.sdkman"
