@@ -1,0 +1,162 @@
+---
+- name: Check if Foundry is already installed
+  stat:
+    path: "{{ ansible_env.HOME }}/.foundry/bin/forge"
+  register: foundry_installed
+
+- name: Download and install Foundry
+  shell: |
+    curl -L https://foundry.paradigm.xyz | bash
+  args:
+    executable: /bin/bash
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.foundry/bin"
+  when: not foundry_installed.stat.exists
+  register: foundry_install_result
+
+- name: Source foundry in current shell and update foundryup
+  shell: |
+    source {{ ansible_env.HOME }}/.bashrc || source {{ ansible_env.HOME }}/.zshrc || true
+    {{ ansible_env.HOME }}/.foundry/bin/foundryup
+  args:
+    executable: /bin/bash
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.foundry/bin"
+  when: not foundry_installed.stat.exists
+
+- name: Verify Foundry installation - check forge binary
+  stat:
+    path: "{{ ansible_env.HOME }}/.foundry/bin/forge"
+  register: forge_binary
+
+- name: Verify Foundry installation - check cast binary
+  stat:
+    path: "{{ ansible_env.HOME }}/.foundry/bin/cast"
+  register: cast_binary
+
+- name: Verify Foundry installation - check anvil binary
+  stat:
+    path: "{{ ansible_env.HOME }}/.foundry/bin/anvil"
+  register: anvil_binary
+
+- name: Verify Foundry installation - check chisel binary
+  stat:
+    path: "{{ ansible_env.HOME }}/.foundry/bin/chisel"
+  register: chisel_binary
+
+- name: Get forge version and verify hash
+  shell: |
+    {{ ansible_env.HOME }}/.foundry/bin/forge --version
+  register: forge_version
+  when: forge_binary.stat.exists
+
+- name: Get cast version and verify hash
+  shell: |
+    {{ ansible_env.HOME }}/.foundry/bin/cast --version
+  register: cast_version
+  when: cast_binary.stat.exists
+
+- name: Get anvil version and verify hash
+  shell: |
+    {{ ansible_env.HOME }}/.foundry/bin/anvil --version
+  register: anvil_version
+  when: anvil_binary.stat.exists
+
+- name: Get chisel version and verify hash
+  shell: |
+    {{ ansible_env.HOME }}/.foundry/bin/chisel --version
+  register: chisel_version
+  when: chisel_binary.stat.exists
+
+- name: Calculate SHA256 hash of forge binary
+  shell: |
+    shasum -a 256 {{ ansible_env.HOME }}/.foundry/bin/forge
+  register: forge_hash
+  when: forge_binary.stat.exists
+
+- name: Calculate SHA256 hash of cast binary
+  shell: |
+    shasum -a 256 {{ ansible_env.HOME }}/.foundry/bin/cast
+  register: cast_hash
+  when: cast_binary.stat.exists
+
+- name: Calculate SHA256 hash of anvil binary
+  shell: |
+    shasum -a 256 {{ ansible_env.HOME }}/.foundry/bin/anvil
+  register: anvil_hash
+  when: anvil_binary.stat.exists
+
+- name: Calculate SHA256 hash of chisel binary
+  shell: |
+    shasum -a 256 {{ ansible_env.HOME }}/.foundry/bin/chisel
+  register: chisel_hash
+  when: chisel_binary.stat.exists
+
+- name: Display Foundry installation verification
+  debug:
+    msg: |
+      Foundry Installation Verification:
+      =================================
+      Forge installed: {{ forge_binary.stat.exists }}
+      Cast installed: {{ cast_binary.stat.exists }}
+      Anvil installed: {{ anvil_binary.stat.exists }}
+      Chisel installed: {{ chisel_binary.stat.exists }}
+      
+      {% if forge_binary.stat.exists %}
+      Forge version: {{ forge_version.stdout }}
+      Forge hash: {{ forge_hash.stdout }}
+      {% endif %}
+      
+      {% if cast_binary.stat.exists %}
+      Cast version: {{ cast_version.stdout }}
+      Cast hash: {{ cast_hash.stdout }}
+      {% endif %}
+      
+      {% if anvil_binary.stat.exists %}
+      Anvil version: {{ anvil_version.stdout }}
+      Anvil hash: {{ anvil_hash.stdout }}
+      {% endif %}
+      
+      {% if chisel_binary.stat.exists %}
+      Chisel version: {{ chisel_version.stdout }}
+      Chisel hash: {{ chisel_hash.stdout }}
+      {% endif %}
+
+- name: Verify all Foundry components are installed
+  assert:
+    that:
+      - forge_binary.stat.exists
+      - cast_binary.stat.exists
+      - anvil_binary.stat.exists
+      - chisel_binary.stat.exists
+    fail_msg: "Some Foundry components are missing. Please check the installation."
+    success_msg: "All Foundry components are successfully installed and verified."
+
+- name: Add Foundry to PATH in shell profile
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: 'export PATH="$PATH:$HOME/.foundry/bin"'
+    create: yes
+    backup: yes
+  when: ansible_env.SHELL | basename == 'zsh'
+
+- name: Test Foundry installation with a simple forge command
+  shell: |
+    {{ ansible_env.HOME }}/.foundry/bin/forge init --help
+  register: forge_test
+  failed_when: forge_test.rc != 0
+
+- name: Display successful installation message
+  debug:
+    msg: |
+      🎉 Foundry has been successfully installed and verified!
+      
+      Installation location: {{ ansible_env.HOME }}/.foundry/bin/
+      
+      Available commands:
+      - forge: Build, test, fuzz, debug and deploy Solidity contracts
+      - cast: Perform Ethereum RPC calls from the command line
+      - anvil: Local Ethereum node, akin to Ganache or Hardhat Network
+      - chisel: Fast, utilitarian, and verbose Solidity REPL
+      
+      Please restart your terminal or run 'source ~/.zshrc' (or ~/.bashrc) to use Foundry commands.

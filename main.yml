@@ -33,8 +33,8 @@
     # ------- default system ------- #
     # NOTE: Needs to happen before dotfiles have been installed
     # NOTE: Update aliases for Mac
-    - role: zsh  # working
-      tags: ["zsh"]
+    # - role: zsh  # working
+    #   tags: ["zsh"]
     # - role: geerlingguy.dotfiles  # working
     #   when: configure_dotfiles
     #   tags: ['dotfiles']
@@ -45,18 +45,17 @@
     #   tags: ['dock']
 
     # ------- working ------- #
-    # - role: nvm  # NVM and Node.js setup
-    #   tags: [nvm]
+
+    # - role: foundry  # working
+    #   tags: [foundry]
     # - role: go  # working
     #   tags: [go]
     # - role: ignite  # working
     #   tags: [ignite]
     # - role: java  # working
     #   tags: [java]
-    # TODO: 1password
-    #   GPG/SSH key for verifying
-    # - role: ssh
-    #   tags: [ssh]
+    # - role: nvm  # NVM and Node.js setup
+    #   tags: [nvm]
     # - role: stretchly  # working
     #   tags: [stretchly]
     # - role: vscode  # working
@@ -64,6 +63,10 @@
 
 # ------- Above is used --------- #
 
+    # TODO: 1password
+    #   GPG/SSH key for verifying
+    # - role: ssh
+    #   tags: [ssh]
     # - role: settings
     #   tags: [settings]
     # - role: maintenance
