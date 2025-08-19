@@ -189,7 +189,6 @@ vscode_extensions:
   - davidanson.vscode-markdownlint  # markdown lint
   - dbaeumer.vscode-eslint  # es lint
   - docker.docker # docker dx
-  - equinusocio.vsc-material-theme-icons  # material icon theme
   - github.copilot # code suggestions
   - github.copilot-chat # code suggestions chat
   - github.vscode-github-actions  # github actions
