@@ -196,26 +196,37 @@ ssh_keys:
 
 #-------------- Role: VSCode --------------#
 vscode_extensions:
+  - cweijan.dbclient-jdbc # database client
+  - cweijan.vscode-database-client2 # database client
   - davidanson.vscode-markdownlint  # markdown lint
-  # - dbaeumer.vscode-eslint  # es lint
+  - dbaeumer.vscode-eslint  # es lint
+  - docker.docker # docker dx
   - equinusocio.vsc-material-theme-icons  # material icon theme
+  - github.copilot # code suggestions
+  - github.copilot-chat # code suggestions chat
   - github.vscode-github-actions  # github actions
+  - github.vscode-pull-request-github # github pull request
   - golang.go  # go
-  # - hashicorp.terraform  # terraform # TODO: check tofu
-  # - juanblanco.solidity  # solidity
+  - hashicorp.terraform  # terraform
+  - juanblanco.solidity  # solidity
   # - johnpapa.vscode-peacock  # peacock - add colours to your windows
-  # - littlefoxteam.vscode-python-test-adapter  # python test explorer
+  - mechatroner.rainbow-csv # rainbow csv
   - mhutchie.git-graph  # git graph
+  - ms-azuretools.vscode-containers  # containers
   - ms-azuretools.vscode-docker  # docker
   # - ms-vscode.live-server  # live html previewer
   - ms-python.debugpy # python debugger
   - ms-python.python  # python
   - ms-python.vscode-pylance  # pylance
-  # - ms-vscode.makefile-tools  # Makefile Tools
-  # - peterj.proto  # proto
+  - ms-python.vscode-python-envs  # python environments
+  - ms-vscode.remote-explorer # remote explorer
+  - ms-vscode-remote.remote-ssh # remote ssh
+  - ms-vscode-remote.remote-ssh-edit # remote ssh edit
+  - pkief.material-icon-theme  # material icon theme
   # - rust-lang.rust-analyzer  # rust
   - tamasfe.even-better-toml  # toml linting
   # - tomoki1207.pdf  # pdf viewer
   - wholroyd.jinja  # jinja
   # - yoavbls.pretty-ts-errors  # pretty ts errors
+  - yzhang.markdown-all-in-one  # markdown all in one
   - zxh404.vscode-proto3  # proto3
