@@ -241,8 +241,10 @@ alias tfp='tofu plan'
 
 #-------------- Linux service management --------------#
 # Commands that would frequently be run on remote servers
+if [[ "$(uname -s)" == "Linux" ]]; then
 
 # --------- systemctl --------- #
-systemctl list-units --type=service --all # show all services (active, inactive, etc.)
-systemctl list-unit-files --type=service --state=enabled # just the enabled services
-systemctl list-units --type=service --state=running # just the active (running) services
+  alias sall='systemctl list-units --type=service --all'               # show all services (active, inactive, etc.)
+  alias sen='systemctl list-unit-files --type=service --state=enabled' # just the enabled services
+  alias srun='systemctl list-units --type=service --state=running'     # just the active (running) services
+fi
