@@ -1,23 +1,62 @@
 {
+  "chat.agent.maxRequests": 50,
+  "chat.checkpoints.enabled": true,
+  "chat.math.enabled": true,
+  "chat.mcp.autostart": "newAndOutdated",
+  "chat.notifyWindowOnConfirmation": true,
+  "chat.todoListTool.enabled": true,
+  "chat.tools.terminal.autoApprove": {
+    "rm": false,
+    "rmdir": false,
+    "del": false,
+    "kill": false,
+    "curl": false,
+    "wget": false,
+    "eval": false,
+    "chmod": false,
+    "chown": false,
+    "make run": true,
+    "/^Remove-Item\\b/i": false
+  },
+  "database-client.autoSync": true,
+  "editor.aiStats.enabled": true,
   "files.exclude": {
       "**/__pycache__": true,
       "**/.mypy_cache": true,
       "**/.pytest_cache": true,
       "**/.ruff_cache": true
   },
-  "git.confirmSync": false,
   "git.autofetch": false,
+  "git.confirmSync": false,
   "git.suggestSmartCommit": false,
+  "git.detectWorktrees": true,
+  "github.copilot.enable": {
+    "*": false,
+    "go": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "yaml": true
+  },
+  "github.copilot.nextEditSuggestions.enabled": true,
   "go.testFlags": ["-v"],
   "go.testTimeout": "20m",
-  "markdown.experimental.updateLinksOnPaste": true,
+  "gopls": {
+    "buildFlags": ["-tags=integration"]
+  },
+  "go.toolsManagement.autoUpdate": true,
+  "inlineChat.enableV2": true,
+  "inlineChat.notebookAgent": true,
+  "python.testing.pytestEnabled": true,
   "python.testing.pytestArgs": [
       "tests"
   ],
   "python.testing.unittestEnabled": false,
-  "python.testing.pytestEnabled": true,
-  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "python.useEnvironmentsExtension": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "testExplorer.useNativeTesting": true,
   "window.zoomLevel": 1,
   "workbench.colorTheme": "Default Dark Modern",
-  "workbench.iconTheme": "eq-material-theme-icons-light"
+  "workbench.iconTheme": "material-icon-theme"
 }
