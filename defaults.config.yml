@@ -182,18 +182,6 @@ nvm_dir: "{{ ansible_env.HOME }}/.nvm"
 # system_save_application_state_on_quit: true
 # system_warn_before_emptying_the_trash: true
 
-#-------------- Role: SSH --------------#
-configure_ssh: true
-ssh_keys:
-  - comment: "Ben GitHub"
-    name: "ben"
-    hostname: "github.com"
-    type: "ed25519"
-  # - comment: "Kima GitHub"
-  #   name: "kima"
-  #   hostname: "github.com"
-  #   type: "ed25519"
-
 #-------------- Role: VSCode --------------#
 vscode_extensions:
   - cweijan.dbclient-jdbc # database client
