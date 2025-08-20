@@ -1,0 +1,77 @@
+---
+- name: Check if uv is already installed
+  stat:
+    path: "{{ ansible_env.HOME }}/.local/bin/uv"
+  register: uv_installed
+
+- name: Download uv installer script
+  get_url:
+    url: https://astral.sh/uv/install.sh
+    dest: /tmp/uv-install.sh
+    mode: '0755'
+    timeout: 30
+  when: not uv_installed.stat.exists
+
+- name: Install uv using official installer
+  shell: |
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+  args:
+    executable: /bin/bash
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.local/bin"
+  when: not uv_installed.stat.exists
+  register: uv_install_result
+
+- name: Verify uv installation
+  stat:
+    path: "{{ ansible_env.HOME }}/.local/bin/uv"
+  register: uv_binary_check
+
+- name: Get uv version
+  shell: |
+    {{ ansible_env.HOME }}/.local/bin/uv --version
+  register: uv_version
+  when: uv_binary_check.stat.exists
+
+- name: Test uv installation with help command
+  shell: |
+    {{ ansible_env.HOME }}/.local/bin/uv --help
+  register: uv_test
+  failed_when: uv_test.rc != 0
+  when: uv_binary_check.stat.exists
+
+- name: Display uv installation verification
+  debug:
+    msg: |
+      UV Installation Verification:
+      ============================
+      UV installed: {{ uv_binary_check.stat.exists }}
+      UV version: {{ uv_version.stdout | default('Not available') }}
+      Installation path: {{ ansible_env.HOME }}/.local/bin/uv
+
+- name: Verify uv installation success
+  assert:
+    that:
+      - uv_binary_check.stat.exists
+      - uv_version is defined
+      - uv_version.rc == 0
+    fail_msg: "UV installation failed or is incomplete"
+    success_msg: "UV has been successfully installed and verified"
+
+- name: Display successful installation message
+  debug:
+    msg: |
+      🎉 UV has been successfully installed and verified!
+      
+      Installation location: {{ ansible_env.HOME }}/.local/bin/uv
+      Version: {{ uv_version.stdout }}
+      
+      UV is a fast Python package installer and resolver, designed as a drop-in replacement for pip and pip-tools.
+      
+      Common commands:
+      - uv pip install <package>  # Install packages
+      - uv pip list               # List installed packages
+      - uv pip freeze             # Show installed packages with versions
+      - uv venv                   # Create virtual environments
+      
+      Please restart your terminal or run 'source ~/.zshrc' (or ~/.bashrc) to use uv commands.
